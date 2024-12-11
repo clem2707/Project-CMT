@@ -113,8 +113,6 @@ for lieu in FM.liste_lieux:
     plt.ylabel("Température (°C)")
     plt.legend()
     plt.grid()
-
-
     plt.show()
 
 
@@ -206,7 +204,7 @@ for lieu in FM.liste_lieux:
     plt.show()
 
 
-    # Avec courants marins (n'apporte pas grand chose)
+    # Avec courants marins (n'apporte pas grand chose + la fonction courants marins prend bcp de temps)
 
     plt.figure(figsize=(10, 6))
 
@@ -228,7 +226,7 @@ for lieu in FM.liste_lieux:
             plt.plot(temps, temp_bruit_extreme_inertie_courants, label=f"Année {2024 + annee}")
 
 
-    plt.title(f"Température annuelle du Léman à la surface à {lieu.endroit} (avec bruit, évènements extrêmes, inertie et courant)")
+    plt.title(f"Température annuelle du Léman à la surface à {lieu.endroit} (avec bruit, évènements extrêmes, inertie et courants)")
     plt.xlabel("Temps (jours)")
     plt.ylabel("Température (°C)")
     plt.legend()
