@@ -3,14 +3,51 @@
 ## Project Description
 
 This program will compute temperature of lake Geneva with two models.
-One statistical model based on datas and one physical model based on the place of interest of the lake and a sinusoidal equation.
+One statistical model based on datas and one physical model based on the place of interest of the lake, differents parameters and a sinusoidal equation.
 Finally it computes a 2D map of lake geneva and attributes temperature at the surface on a chosen day on a certain area of the lake. 
 
-You are here on the Clem and Sven CMT project page, lucky you !
+This program wil:
+1. Read in inputs
+  - datas found in "data" folder containing 15 temperature datas csv files of 15 places around the lake.
+2. Generate
+  - 4 csv files of temperature datas from the physical model
+    - "Morges_temperatures_2024.csv"
+    - "Morges_temperatures_2005.cvs"
+    - "Eaux_vives_temperatures_2024.csv"
+    - "Eaux_vives_temperatures_2050.csv"
+3. Plot differents graphes of both models and a statistical based temperature map of lake Geneva
 
-Our goal is to compare temperature datas of Lake Geneva with differents models that we will compute and see what parameters are more important and how the climate change affects those.
+## Project structure
 
-Hope you'll find it interesting !
+- "*data/*" contains input data
+- 
+
+
+### Inputs and outputs
+
+Inputs:
+- "*data/bouveret.csv" is a comma-delimted file.
+- "*data/evian.csv" is a comma-delimted file.
+- "*data/geneve.csv" is a comma-delimted file.
+- "*data/hermance.csv" is a comma-delimted file.
+- "*data/lugrin.csv" is a comma-delimted file.
+- "*data/lutry.csv" is a comma-delimted file.
+- "*data/morges.csv" is a comma-delimted file.
+- "*data/nyon.csv" is a comma-delimted file.
+- "*data/rolle.csv" is a comma-delimted file.
+- "*data/saint-sulpice" is a comma-delimted file.
+- "*data/thonon.csv" is a comma-delimted file.
+- "*data/versoix.csv" is a comma-delimted file.
+- "*data/vevey.csv" is a comma-delimted file.
+- "*data/villeneuve.csv" is a comma-delimted file.
+- "*data/yvoire.csv" is a comma-delimted file.
+
+Internal files:
+
+
+Outputs:
+- 
+
 
 # SIE ENG270 Project Repository Example
 
