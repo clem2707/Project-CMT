@@ -6,7 +6,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error
 import matplotlib.pyplot as plt
 
 # Lire le fichier CSV
-file_name = "temperature_data/geneve.csv"  # Remplacez par le chemin vers votre fichier
+file_name = "final/temperature_data/geneve.csv"  # Remplacez par le chemin vers votre fichier
 df = pd.read_csv(file_name, quotechar='"')
 
 # Renommer les colonnes pour enlever les guillemets inversés

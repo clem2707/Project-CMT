@@ -5,7 +5,7 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 
 # Lire le fichier CSV
-file_name = "temperature_data/geneve.csv"  # Remplacez par le chemin vers votre fichier
+file_name = "data/raw/temperature_data/geneve.csv"  # Remplacez par le chemin vers votre fichier
 
 df = pd.read_csv(file_name, quotechar='"')
 
