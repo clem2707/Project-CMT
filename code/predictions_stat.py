@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 from sklearn.linear_model import LinearRegression
 
 
@@ -18,7 +18,7 @@ def pred(folder_path, date_str, path_dest):
     La démarche est répétée pour chaque pour et sort un csv final qui contient le nom des ports (nom de leur csv), leurs coordonnées xy (prédéfinis car ils ne changeent pas) et leurs températures prédites.
 
     """
-    print("** #2. Predicitons **")
+    #print("** #2. Predicitons **")
 
     # Liste pour stocker les résultats
     results = []
@@ -62,8 +62,8 @@ def pred(folder_path, date_str, path_dest):
         y = temp_moyenne['temperature'].values
 
         # Affichage des valeurs de x et y
-        print("x (années):", x.flatten())  # Affiche les années sous forme d'une liste
-        print("y (températures):", y)  # Affiche les températures correspondantes
+        #print("x (années):", x.flatten())  # Affiche les années sous forme d'une liste
+        #print("y (températures):", y)  # Affiche les températures correspondantes
 
         # Modèle de régression linéaire
         model = LinearRegression()
@@ -88,6 +88,53 @@ def pred(folder_path, date_str, path_dest):
     results_df.to_csv(path_dest, index=False)
 
 
-folder = "/Users/clemencechansel/Desktop/ECOLE/Epfl/CMT/Project-CMT/datas/temperature_data"
-date_str = "27/07/2023"
-result = pred(folder, date_str, './internal/predicted_temperature.csv')
+#folder = "/Users/clemencechansel/Desktop/ECOLE/Epfl/CMT/Project-CMT/datas/temperature_data"
+#date_str = "27/07/2023"
+#result = pred(folder, date_str, './internal/predicted_temperature.csv')
+
+
+def pred_per_year(folder_path, start_date_str, path_dest):
+
+    start_date = datetime.strptime(start_date_str, '%d/%m/%Y')
+
+    all_results = []
+    daily_files = []
+
+    for i in range(366):
+    
+        # Calculer la date actuelle
+        current_date = start_date + timedelta(days=i)
+        current_date_str = current_date.strftime('%d/%m/%Y')
+        
+        # Définir un chemin de destination pour chaque jour
+        daily_path_dest = f"{path_dest}/pred_{current_date_str.replace('/', '-')}.csv"
+        
+         # Créer le répertoire si nécessaire
+        os.makedirs(os.path.dirname(daily_path_dest), exist_ok=True)
+        
+        # Appeler la fonction pred pour la date actuelle
+        pred(folder_path, current_date_str, daily_path_dest)
+        
+        # Charger les résultats quotidiens et les ajouter à la liste des résultats annuels
+        daily_results = pd.read_csv(daily_path_dest)
+        all_results.append(daily_results)
+
+        daily_files.append(daily_path_dest) #pour pouvoir supprimer apres
+    
+    # Combiner tous les résultats quotidiens en un seul DataFrame
+    annual_results = pd.concat(all_results, ignore_index=True)
+    
+    # Sauvegarder les résultats annuels dans un fichier CSV
+    annual_results.to_csv(f"{path_dest}_annual_predictions.csv", index=False)
+
+       # Supprimer les fichiers quotidiens après combinaison
+    for file in daily_files:
+        os.remove(file)
+
+
+
+folder_path = "datas/temperature_per_year"
+start_date_str = "01/01/2024"
+path_dest = "./internal/predicted_temperatures"
+pred_per_year(folder_path, start_date_str, path_dest)
+
