@@ -199,7 +199,7 @@ int main() {
         double initial_temp = MAET(location); // Initial mean annual temperature (°C)
 
         // Loop on the years
-
+//./internal/%s_temperatures_%d.csv
         for (int year = 0; year < YEARS; year++) {
             
             if (year == 0 || year == 26) {  // Choose 2024 and 2050
@@ -209,7 +209,7 @@ int main() {
                 // Create a CSV file for this location
 
                 char filename[100];
-                snprintf(filename, sizeof(filename), "%s_temperatures_%d.csv", location->location, 2024 + year);
+                snprintf(filename, sizeof(filename), "../internal/%s_temperatures_%d.csv", location->location, 2024 + year);
         
                 FILE *file = fopen(filename, "w");
                 if (file == NULL) {
