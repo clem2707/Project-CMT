@@ -71,7 +71,7 @@ def predict_folder(folder_path, date_str, path_dest):
     y_values = [46.403, 46.388, 46.208, 46.276, 46.451, 46.372, 46.506, 46.506, 46.405, 46.378, 46.376, 46.398, 46.301, 46.5, 46.456]
 
     # Lister tous les fichiers CSV dans le dossier
-    csv_files = [f for f in os.listdir(folder_path)]
+    csv_files = [f for f in os.listdir(folder_path) if f.endswith('.csv')]
 
     # Boucle afin d'itérer sur chaque csv
     for i, path_data in enumerate(csv_files):
@@ -149,6 +149,6 @@ date_str = "27/07/2025"
 path_dest = './internal/temp_predictions.csv'
 
 
-predict_year(file_path, year)
-#predict_folder(folder_path, date_str, path_dest)
+#predict_year(file_path, year)
+predict_folder(folder_path, date_str, path_dest)
 
