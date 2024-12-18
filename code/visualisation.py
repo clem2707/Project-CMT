@@ -4,33 +4,39 @@ import numpy as np
 
 # File paths for the CSV files
 
-csv_physic_model_eaux_vives_2024 = "internal/Eaux-vives_temperatures_2024.csv"
-csv_stat_model_eaux_vives_2024 = "internal/annual_predictions_2025.csv"
-csv_data_eaux_vives_2024 = "datas/temperature_data/geneve.csv"
+csv_physic_model_eaux_vives_2024 = "internal/Eaux-vives_temperatures_2024.csv"  # Physic csv file
+csv_stat_model_eaux_vives_2024 = "internal/annual_predictions_2025.csv" # Statistic csv file
+csv_data_eaux_vives_2024 = "datas/temperature_data/geneve.csv"  # Data csv file
 
 # Initialize lists to store the data
-temp_warming_noise_extreme_inertia_currents = []
-temp_predic_stat = []
+physic_temp = []
+stat_temp = []
 filtered_data = []
+
 
 # Reading the CSV file for the physical model predictions
 with open(csv_physic_model_eaux_vives_2024, mode='r', encoding='utf-8') as file:
+
     reader = csv.reader(file)
     headers = next(reader)  # Read the first line (headers)
     
     for row in reader:
+
         # Extract the columns
-        #days.append(int(row[0]))  # First column: days
-        temp_warming_noise_extreme_inertia_currents.append(float(row[5]))  # Sixth column: temp_warming_noise_extreme_inertia_currents
+        physic_temp.append(float(row[5]))  # Sixth column: temperature with all the parameters
+
+
 
 # Reading the CSV file for the statistical model predictions
 with open(csv_stat_model_eaux_vives_2024, mode='r', encoding='utf-8') as file:
+
     reader = csv.reader(file)
-    headers = next(reader)  # Read the first line (headers)
+    headers = next(reader)
     
     for row in reader:
+        
         # Extract the columns
-        temp_predic_stat.append(float(row[1]))  # Second column: statistical model predictions
+        stat_temp.append(float(row[1]))  # Second column: statistical model predictions
 
 # Reading the CSV file for the actual temperature data
 with open(csv_data_eaux_vives_2024, mode='r', encoding='utf-8') as file:
