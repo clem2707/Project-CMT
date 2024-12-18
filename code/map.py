@@ -5,7 +5,12 @@ from shapely.geometry import Point, Polygon
 
 def map(path_data, path_dest, path_results):
     """
-    décrire ce que fait la fonction ici
+    La fontion prend en input : un csv contenant une liste de ports ordonnée avec leurs coordonnées xy, un endroit pour stocker sous forme csv les points interrieurs du lac et un endroit pour stocker notre carte.
+    Le but est de crée une carte du lac afin de pouvoir aller plus loin dans nos prédictions et pouvoir faire une interpolation pour prédire à n'importe quel endroit la température.
+    Nous avons essayé beaucoup de manière de faire cette carte, mais le moyen le plus simple a été de prendre une liste de port ordonnée. 
+    Nous affichons ces coordonnées une par une sur un graphe xy puis relions chaque port jusqu'à avoir un lac fermé.
+    Enfin, pour faciliter la suite, nous en extraiyons en output une liste de point contenu dans ce lac avec un pas prédéfini.
+
     """
     print("** #1. Map of GVA Lake **")
 
