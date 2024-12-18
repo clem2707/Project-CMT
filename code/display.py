@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.spatial import cKDTree
 
-def display_stat(predicted_data_path, interior_points_path):
+def display_stat(predicted_data_path, interior_points_path, path_results):
     """
     Cette fontion prend en input : les chemins des températures prédites faites au point 2 et des points interrieurs du lac fait au point 1. 
     Les buts de cette fonction est : d'afficher nos résultats de prédictions de températures et d'aller plus loin en faisant une interpolation.
@@ -80,6 +80,7 @@ def display_stat(predicted_data_path, interior_points_path):
     plt.ylabel('Latitude (y)')
     plt.title('Interpolated Temperature Map for Interior Points of Geneva Lake')
     plt.legend()
-    plt.show()
+    plt.savefig(path_results)
+    plt.close()
 
-display_stat("internal/predicted_temperature.csv", "internal/interior_points.csv")
+display_stat("internal/predicted_temperature.csv", "internal/interior_points.csv", "./results/lake_final_predictions.png")
