@@ -2,92 +2,93 @@ import matplotlib.pyplot as plt
 import csv
 import numpy as np
 
-# Chemin vers le fichier CSV
-csv_eaux_vives_2024 = "internal/Eaux-vives_temperatures_2024.csv"
-csv_predic_stat_eaux_vives_2024 = "internal/predicted_temperatures_annual_predictions.csv"
-csv_data_eaux_vives_2024 = "datas/temperature_per_year/geneve.csv"
+# File paths for the CSV files
 
-# Initialiser les listes pour stocker les données
-days = []
+csv_physic_model_eaux_vives_2024 = "internal/Eaux-vives_temperatures_2024.csv"
+csv_stat_model_eaux_vives_2024 = "internal/annual_predictions_2025.csv"
+csv_data_eaux_vives_2024 = "datas/temperature_data/geneve.csv"
+
+# Initialize lists to store the data
 temp_warming_noise_extreme_inertia_currents = []
 temp_predic_stat = []
 filtered_data = []
 
-# Lecture du fichier CSV
-with open(csv_eaux_vives_2024, mode='r', encoding='utf-8') as file:
+# Reading the CSV file for the physical model predictions
+with open(csv_physic_model_eaux_vives_2024, mode='r', encoding='utf-8') as file:
     reader = csv.reader(file)
-    headers = next(reader)  # Lire la première ligne (en-têtes)
+    headers = next(reader)  # Read the first line (headers)
     
     for row in reader:
-        # Extraire les colonnes
-        days.append(int(row[0]))  # Première colonne : jours
-        temp_warming_noise_extreme_inertia_currents.append(float(row[5]))  # Sixième colonne : temp_warming_noise_extreme_inertia_currents
+        # Extract the columns
+        #days.append(int(row[0]))  # First column: days
+        temp_warming_noise_extreme_inertia_currents.append(float(row[5]))  # Sixth column: temp_warming_noise_extreme_inertia_currents
 
-with open(csv_predic_stat_eaux_vives_2024, mode='r', encoding='utf-8') as file:
+# Reading the CSV file for the statistical model predictions
+with open(csv_stat_model_eaux_vives_2024, mode='r', encoding='utf-8') as file:
     reader = csv.reader(file)
-    headers = next(reader)  # Lire la première ligne (en-têtes)
+    headers = next(reader)  # Read the first line (headers)
     
     for row in reader:
-        # Extraire les colonnes
-        temp_predic_stat.append(float(row[2]))  # Sixième colonne : temp_warming_noise_extreme_inertia_currents
+        # Extract the columns
+        temp_predic_stat.append(float(row[1]))  # Second column: statistical model predictions
 
+# Reading the CSV file for the actual temperature data
 with open(csv_data_eaux_vives_2024, mode='r', encoding='utf-8') as file:
     reader = csv.reader(file)
-    headers = next(reader)  # Lire la première ligne (en-têtes)
+    headers = next(reader)  # Read the first line (headers)
     
     for row in reader:
         if '2024' in row[1]:
-            filtered_data.append(row)        # Extraire les colonnes
+            filtered_data.append(row)  # Extract the data for 2024
 
+# Extracting the temperature values for 2024
 temp = [row[3] for row in filtered_data]
 print(temp)
-# Conversion en float
+
+# Convert temperatures to float
 float_temperatures = [float(tempe) for tempe in temp]
 
-# Afficher la liste des températures en float
+# Display the list of temperatures as floats
 print(float_temperatures)
 
+# Calculate the 8-day moving average
 i = 0
-somme = 0.0
-liste_moy = []
-longueur = len(float_temperatures)
-for t in range(longueur):
-        if i % 8 != 0:
-            somme += float_temperatures[t]
-            i += 1
-        else:
-            moy = somme / 8
-            liste_moy.append(moy)
-            print(moy,t/8)
-            somme = float_temperatures[t]
-            i += 1
-print(liste_moy)
-print(temp_warming_noise_extreme_inertia_currents)
-print(temp_predic_stat)
-liste_moy_adjust = liste_moy[1:]
-print(liste_moy_adjust)
-print(len(liste_moy_adjust))
+sum_temp = 0.0
+moving_avg_list = []
+length = len(float_temperatures)
+for t in range(length):
+    if i % 8 != 0:
+        sum_temp += float_temperatures[t]
+        i += 1
+    else:
+        avg = sum_temp / 8
+        moving_avg_list.append(avg)
+        print(avg, t / 8)
+        sum_temp = float_temperatures[t]
+        i += 1
 
+# Adjust the list for plotting
+moving_avg_adjusted = moving_avg_list[1:]
 
-# Création d'un axe X pour chaque liste
-x1 = np.arange(1, 366)  # Axe X pour les deux premières listes (1 à 365)
-x2 = np.arange(1, 367)
-x3 = np.arange(1, 327)  # Axe X pour la troisième liste (1 à 325)
+# Create X axes for each list
+x1 = np.arange(1, 366)  # X-axis for the first two lists (1 to 365)
+x2 = np.arange(1, 366)
+x3 = np.arange(1, 327)  # X-axis for the third list (1 to 325)
 
-# Tracer les deux premières listes sous forme de courbes
-plt.plot(x1, temp_warming_noise_extreme_inertia_currents, label="Liste 1 (365 valeurs)", color='b')
-plt.plot(x2, temp_predic_stat, label="Liste 2 (366 valeurs)", color='r')
+# Plot the first two lists as curves
+plt.plot(x1, temp_warming_noise_extreme_inertia_currents, label="Physic prediction", color='b')
+plt.plot(x2, temp_predic_stat, label="Statistic prediction", color='r')
 
-# Tracer la troisième liste sous forme de points
-plt.scatter(x3, liste_moy_adjust, label="Liste 3 (325 valeurs)", color='g')
+# Plot the third list as points
+plt.scatter(x3, moving_avg_adjusted, label="Actual data", color='g')
 
-# Ajouter des étiquettes et un titre
-plt.xlabel("Jour")
-plt.ylabel("Valeur")
-plt.title("Graphique des 3 listes (2 courbes et 1 scatter)")
+# Add labels and title
+plt.xlabel("Day of the year")
+plt.ylabel("Temperature")
+plt.title("Temperature of the surface of Lake Geneva in 2024")
 
-# Ajouter une légende
+# Add a legend
 plt.legend()
 
-# Afficher le graphique
+# Display the plot
 plt.show()

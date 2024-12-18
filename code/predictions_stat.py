@@ -141,7 +141,7 @@ def predict_year(file_path, year):
 
 # Exemple d'utilisation year 
 file_path = "datas/temperature_data/geneve.csv"
-year = "2025"
+year = "2024"
 
 # Exemple d'utilisation folder
 folder_path = "datas/temperature_data"
@@ -149,6 +149,6 @@ date_str = "27/07/2025"
 path_dest = './internal/temp_predictions.csv'
 
 
-#predict_year(file_path, year)
-predict_folder(folder_path, date_str, path_dest)
+predict_year(file_path, year)
+#predict_folder(folder_path, date_str, path_dest)
 
