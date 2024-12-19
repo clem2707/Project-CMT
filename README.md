@@ -87,11 +87,32 @@ parameters in the function such as the locations.
   - Create 5 lists of daily temperature for a given year adding each time a new parameter to complexify the physic model.
   - Create a csv file for the two locations and years of interest containing these lists of temperature
 - "*physic_model.exe*" which simply allows the compilation of "*physic_model.c*"
-- "*map_lake.py*" creates a map of Lake Geneva based on a list of harbors and their coordinates, outputs a csv with all points inside the lake
+- "*map_lake.py*" 
+  - creates a map of Lake Geneva from a list of ports with their xy coordinates and it is save in the "*results/*" folder. 
+  - draw a polygon linking the harbours, then generate indices to traverse the points inside the polygon and export a CSV file containing these points.
 - "*temp_stat_predictions.py*"
+  - this code is used to statistically predict temperatures in Lake Geneva based on historical data from harbours around the lake, it comprises three main functions:
+    - a function dedicated to predicting temperatures for a given date using linear regression based on historical data for one day over several years.
+    - a function for processing a complete file by applying the first function to each data file.
+    - a function that makes predictions over an entire year by running each day successively through the first function.
+  - the results of the predictions are saved in CSV file in the "*internal/*" folder, making them easy to view and analyse.
 - "*real_temp.py*"
+  - this function retrieves the actual temperatures of Lake Geneva for a given date from historical data recorded in the ports around the lake
+  - it explores a folder containing CSV files, filters the data to isolate those corresponding to the specified date, calculates the average temperature for each port since there are several values per day, and associates these values with the xy coordinates of the ports.
+  - the result is a CSV file save in the "*internal/*" folder and it is structured in 5 columns: port name, date, actual temperature, x and y coordinates. 
 - "*display_stat.py*"
+  - this function displays and interpolates Lake Geneva temperatures from port and inland point data.
+    - imports data from predicted temperatures and inland points.
+    - calculates inland point temperatures via a weighted average of nearest neighbours using a k-d tree.
+    - generates a map displaying predicted and interpolated points with a colour palette representing temperatures.
+  - the result is a complete and accurate map of thermal variations over the surface of the lake save in the "*results/*" folder.
 - "*linear_regression.py*"
+  - this function generates a graph showing polynomial regressions of annual temperatures since 2018 in a specific port.
+    - reads a CSV file containing hourly temperature records and formats the columns.
+    - converts dates into years and days of the year, then calculates daily averages.
+    - fits a degree 4 polynomial model to the daily averages for each year.
+    - plots a smooth curve for each year, representing the annual variations in temperature.
+    - the resulting graph highlights annual climate trends and is saved as a PNG file in the "*results/*" folder.
 - "*visualisation.py*"
   - Imports the 8 created csv files and 2 csv files coming from "*datas/*"
   - Plots differents graphes based on the csv files
@@ -103,6 +124,7 @@ parameters in the function such as the locations.
 To reproduce results in the report, X steps should be followed. It's important to notice that the physic model contains some random module so the exact reproduction isn't possible, but the differences is implemented on purpose because the wheater isn't an exact science and the yearly temperature doesn't reproduce exactly for each year.
 
 A COMPLETER
+python interpreter et écrire make dans le terminal
 
 ## Requirements
 

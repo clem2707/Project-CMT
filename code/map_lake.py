@@ -2,6 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from shapely.geometry import Point, Polygon
+import sys
+
 
 def map_lake(path_data, path_dest, path_results):
     """
@@ -68,4 +70,7 @@ def map_lake(path_data, path_dest, path_results):
     interior_points_df.to_csv(path_dest, index=False)
 
 # Example usage of the function
-map_lake("datas/harbor.csv", "internal/int_points.csv", "results/lake_vide.png")
+#map_lake("datas/harbor.csv", "internal/int_points.csv", "results/lake_vide.png")
+
+if __name__ == "__main__":
+    map_lake(sys.argv[1], sys.argv[2], sys.argv[3])

@@ -1,31 +1,32 @@
 import matplotlib.pyplot as plt
 import csv
 import numpy as np
+import sys
 
 
 # File paths for the CSV files
 
 # Csv Geneva 2024
 
-csv_physic_model_eaux_vives_2024 = "internal/physic_pred_Geneva_2024.csv"  # Physic csv file for Geneva in 2024
-csv_stat_model_eaux_vives_2024 = "internal/stat_pred_gva_2024.csv" # Statistic csv file  for Geneva in 2024
-csv_data_eaux_vives_2024 = "datas/temperature_data/geneve.csv"  # Data csv file for Geneva in 2024
+#csv_physic_model_eaux_vives_2024 = "internal/physic_pred_Geneva_2024.csv"  # Physic csv file for Geneva in 2024
+#csv_stat_model_eaux_vives_2024 = "internal/stat_pred_gva_2024.csv" # Statistic csv file  for Geneva in 2024
+#csv_data_eaux_vives_2024 = "datas/temperature_data/geneve.csv"  # Data csv file for Geneva in 2024
 
 # Csv Morges 2024
 
-csv_physic_model_morges_2024 = "internal/physic_pred_Morges_2024.csv"  # Physic csv file for Morges in 2024
-csv_stat_model_morges_2024 = "internal/stat_pred_morges_2024.csv" # Statistic csv file  for Morges in 2024
-csv_data_morges_2024 = "datas/temperature_data/morges.csv"  # Data csv file for Morges in 2024
+#csv_physic_model_morges_2024 = "internal/physic_pred_Morges_2024.csv"  # Physic csv file for Morges in 2024
+#csv_stat_model_morges_2024 = "internal/stat_pred_morges_2024.csv" # Statistic csv file  for Morges in 2024
+#csv_data_morges_2024 = "datas/temperature_data/morges.csv"  # Data csv file for Morges in 2024
 
 # Csv Geneva 2050
 
-csv_physic_model_eaux_vives_2050 = "internal/physic_pred_Geneva_2050.csv"  # Physic csv file for Geneva in 2050
-csv_stat_model_eaux_vives_2050 = "internal/stat_pred_gva_2050.csv" # Statistic csv file  for Geneva in 2050
+#csv_physic_model_eaux_vives_2050 = "internal/physic_pred_Geneva_2050.csv"  # Physic csv file for Geneva in 2050
+#csv_stat_model_eaux_vives_2050 = "internal/stat_pred_gva_2050.csv" # Statistic csv file  for Geneva in 2050
 
 # Csv Morges 2050
 
-csv_physic_model_morges_2050 = "internal/physic_pred_Morges_2050.csv"  # Physic csv file for Morges in 2050
-csv_stat_model_morges_2050= "internal/stat_pred_morges_2050.csv" # Statistic csv file  for Morges in 2050
+#csv_physic_model_morges_2050 = "internal/physic_pred_Morges_2050.csv"  # Physic csv file for Morges in 2050
+#csv_stat_model_morges_2050= "internal/stat_pred_morges_2050.csv" # Statistic csv file  for Morges in 2050
 
 
 # The function use physic and statistic model and acutal datas to plot the temperature in 2024
@@ -293,17 +294,29 @@ def plot_2024_vs_2050(csv_physic_2024, csv_physic_2050, place):
 
     plt.clf()
 
-
 # Call the functions
+#Geneva_2024 = plot_2024(csv_physic_model_eaux_vives_2024, csv_stat_model_eaux_vives_2024, csv_data_eaux_vives_2024, "Geneva", 2024)
 
-Geneva_2024 = plot_2024(csv_physic_model_eaux_vives_2024, csv_stat_model_eaux_vives_2024, csv_data_eaux_vives_2024, "Geneva", 2024)
+#Morges_2024 = plot_2024(csv_physic_model_morges_2024, csv_stat_model_morges_2024, csv_data_morges_2024, "Morges", 2024)
 
-Morges_2024 = plot_2024(csv_physic_model_morges_2024, csv_stat_model_morges_2024, csv_data_morges_2024, "Morges", 2024)
+#Geneva_2050 = plot_2050(csv_physic_model_eaux_vives_2050, csv_stat_model_eaux_vives_2050, "Geneva", 2050)
 
-Geneva_2050 = plot_2050(csv_physic_model_eaux_vives_2050, csv_stat_model_eaux_vives_2050, "Geneva", 2050)
+#Morges_2050 = plot_2050(csv_physic_model_morges_2050, csv_stat_model_morges_2050, "Morges", 2050)
 
-Morges_2050 = plot_2050(csv_physic_model_morges_2050, csv_stat_model_morges_2050, "Morges", 2050)
+#Geneva_2024_2050 = plot_2024_vs_2050(csv_physic_model_eaux_vives_2024, csv_physic_model_eaux_vives_2050, "Geneva")
 
-Geneva_2024_2050 = plot_2024_vs_2050(csv_physic_model_eaux_vives_2024, csv_physic_model_eaux_vives_2050, "Geneva")
+#Morges_2024_2050 = plot_2024_vs_2050(csv_physic_model_morges_2024, csv_physic_model_morges_2050, "Morges")
 
-Morges_2024_2050 = plot_2024_vs_2050(csv_physic_model_morges_2024, csv_physic_model_morges_2050, "Morges")
+
+if __name__ == "__main__":
+
+    function_name = sys.argv[1]
+
+    if function_name == "plot_2024":
+        print(plot_2024(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6]))
+
+    elif function_name == "plot_2050":
+        plot_2050(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+
+    elif function_name == "plot_2024_vs_2050":
+        plot_2024_vs_2050(sys.argv[2], sys.argv[3], sys.argv[4])

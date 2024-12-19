@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.spatial import cKDTree
+import sys
 
 def display_stat(predicted_data_path, interior_points_path, path_results):
     """
@@ -22,7 +23,7 @@ def display_stat(predicted_data_path, interior_points_path, path_results):
 
     # Extract coordinates and temperatures from predicted data
     predicted_points = predicted_data[['x', 'y']].values
-    temperatures = predicted_data['predicted_temperature'].values
+    temperatures = predicted_data['temperature'].values
 
     # Build a k-d tree for the predicted points
     tree = cKDTree(predicted_points)
@@ -74,7 +75,11 @@ def display_stat(predicted_data_path, interior_points_path, path_results):
     plt.ylabel('Latitude (y)')
     plt.title('Interpolated Temperature Map for Interior Points of Lake Geneva')
     plt.legend()
+    plt.savefig(path_results)
 
 # Example usage of the function
-display_stat("internal/Lake_pred2024.csv", "internal/interior_points.csv", "results/Lake_pred2024.png")
-display_stat("internal/Lake_reel2024.csv", "internal/interior_points.csv", "results/Lake_reel2024.png")
+#display_stat("internal/Lake_pred2024.csv", "internal/interior_points.csv", "results/Lake_pred2024.png")
+#display_stat("internal/Lake_reel2024.csv", "internal/interior_points.csv", "results/Lake_reel2024.png")
+
+if __name__ == "__main__":
+    display_stat(sys.argv[1], sys.argv[2], sys.argv[3])

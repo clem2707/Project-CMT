@@ -2,6 +2,7 @@ import os
 import pandas as pd
 from datetime import datetime, timedelta
 from sklearn.linear_model import LinearRegression
+import sys
 
 def predict_csv(file_path, date_str):
     """
@@ -89,7 +90,7 @@ def predict_folder(folder_path, date_str, path_dest):
         results.append({
             'file_name': file_name,
             'date': date_str,
-            'predicted_temperature': predicted_temp,
+            'temperature': predicted_temp,
             'x': x,
             'y': y
         })
@@ -99,7 +100,7 @@ def predict_folder(folder_path, date_str, path_dest):
     results_df.to_csv(path_dest, index=False)
     
 
-def predict_year(file_path, year): 
+def predict_year(file_path, year, path_dest): 
     """
     This function takes as input: a CSV file of temperature records from a port on Lake Geneva and a year.
     It uses the predict_csv function and inputs a CSV and a day of the year that iterates over 1 year (365 days).
@@ -128,12 +129,33 @@ def predict_year(file_path, year):
         # Add this result (temperature) with its date to our list
         all_results.append({
             'date': current_date_str,
-            'predicted_temperature': predicted_temp
+            'temperature': predicted_temp
         })
     # Create a CSV by passing through a DataFrame to present it well with column names
     # This CSV contains the predicted values with the corresponding dates for a whole year
     annual_results_df = pd.DataFrame(all_results)
-    annual_results_df.to_csv(f"internal/annual_predictions_{year}.csv", index=False)
+    annual_results_df.to_csv(path_dest, index=False)
 
 
-predict_folder("datas/temperature_data", "01/01/2024", "internal/Lake_pred2024.csv")
+#predict_folder("datas/temperature_data", "01/01/2024", "internal/Lake_pred2024.csv")
+
+if __name__ == "__main__":
+
+    function_name = sys.argv[1]
+
+    if function_name == "predict_csv":
+        file_path = sys.argv[2]
+        date_str = sys.argv[3]
+        print(predict_csv(file_path, date_str))
+
+    elif function_name == "predict_folder":
+        folder_path = sys.argv[2]
+        date_str = sys.argv[3]
+        path_dest = sys.argv[4]
+        predict_folder(folder_path, date_str, path_dest)
+
+    elif function_name == "predict_year":
+        file_path = sys.argv[2]
+        year = sys.argv[3]
+        path_dest = sys.argv[4]
+        predict_year(file_path, year, path_dest)
