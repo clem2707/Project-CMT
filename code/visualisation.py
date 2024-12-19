@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import csv
 import numpy as np
 
+
 # File paths for the CSV files
 
 # Csv Geneva 2024
@@ -31,6 +32,10 @@ csv_stat_model_morges_2050= "internal/stat_pred_morges_2050.csv" # Statistic csv
   
 def plot_2024(csv_physic, csv_statistic, csv_data, place, year):
 
+    """ This function takes three csv files and the place and year of interest as parameters (e.g. 2024). One csv contains the temperature computed with the physic model,
+        one with the temperature computed with the statistic model and one with the measured temperature at the place. The two first are already in a good format to be plot and the last one needs some adjustements.
+        It finally saves the plot in the 'results' folder."""
+    
 
     # Initialize lists to store the data
 
@@ -145,8 +150,6 @@ def plot_2024(csv_physic, csv_statistic, csv_data, place, year):
     # Save the plot
 
     plt.savefig(f"results/Plot temperature in {place} in {year}")
-    plt.show()
-
 
 
 
@@ -155,6 +158,9 @@ def plot_2024(csv_physic, csv_statistic, csv_data, place, year):
 
 def plot_2050(csv_physic, csv_statistic, place, year):
 
+    """ This function takes two csv files and the place and year of interest as parameters (e.g. 2050). One csv contains the temperature computed with the physic model,
+        one with the temperature computed with the statistic model, this time there is of course no measured temperatures for 2050. The same way as in the function 'plot_2024' we plot the temperatures.
+        It finally saves the plot in the 'results' folder."""
 
     # Initialize lists to store the data
 
@@ -213,8 +219,7 @@ def plot_2050(csv_physic, csv_statistic, place, year):
     # Save the plot
 
     plt.savefig(f"results/Plot temperature in {place} in {year}")
-    plt.show()
-
+    
 
 # Call the functions
 
