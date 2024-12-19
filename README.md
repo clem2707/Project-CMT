@@ -1,221 +1,138 @@
-# SIE ENG270 Project Repository
+# SIE Computational Methods and Tools - Project : Temperature modelisation of Lake geneva
 
 ## Project Description
 
-This program will compute temperature of lake Geneva with two models.
+This program will compute temperature of the surface of lake Geneva with two models.
 One statistical model based on datas and one physical model based on the place of interest of the lake, differents parameters and a sinusoidal equation.
 Finally it computes a 2D map of lake geneva and attributes temperature at the surface on a chosen day on a certain area of the lake. 
 
 This program wil:
 1. Read in inputs
-  - datas found in "data" folder containing 15 temperature datas csv files of 15 places around the lake.
+  - datas found in "*datas/temperature_data*" folder containing 15 temperature datas csv files of 15 places around the lake, and a csv file containing a high number of coordonates of ports around the lake .
 2. Generate
   - 4 csv files of temperature datas from the physical model
-    - "Morges_temperatures_2024.csv"
-    - "Morges_temperatures_2005.cvs"
-    - "Eaux_vives_temperatures_2024.csv"
-    - "Eaux_vives_temperatures_2050.csv"
-3. Plot differents graphes of both models and a statistical based temperature map of lake Geneva
+    - "physic_pred_Geneva_2024.csv"
+    - "physic_pred_Morges_2024.csv"
+    - "physic_pred_Geneva_2050.csv"
+    - "physic_pred_Morges_2050.csv"
+  - 4 csv files of temperature datas from the statistic model
+    - "stat_pred_gva_2024.csv"
+    - "stat_pred_morges_2024.csv"
+    - "stat_pred_gva_2050.csv"
+    - "stat_pred_morges_2050.csv"
+  - "interior_poinst.csv" a csv file containing x and y values of the ports
+3. Plot differents graphes with both models, and a statistically based temperature map of lake Geneva
 
 ## Project structure
 
 - "*data/*" contains input data
-- 
-
+- "*internal/*" contains csv files used for passing information between C and Python. They are automatically
+edited by the program and should not be manually modified.
+- "*results/*" contains saved .png files of plotted results
+- "*code/*" contains program code
 
 ### Inputs and outputs
 
 Inputs:
-- "*data/bouveret.csv" is a comma-delimted file.
-- "*data/evian.csv" is a comma-delimted file.
-- "*data/geneve.csv" is a comma-delimted file.
-- "*data/hermance.csv" is a comma-delimted file.
-- "*data/lugrin.csv" is a comma-delimted file.
-- "*data/lutry.csv" is a comma-delimted file.
-- "*data/morges.csv" is a comma-delimted file.
-- "*data/nyon.csv" is a comma-delimted file.
-- "*data/rolle.csv" is a comma-delimted file.
-- "*data/saint-sulpice" is a comma-delimted file.
-- "*data/thonon.csv" is a comma-delimted file.
-- "*data/versoix.csv" is a comma-delimted file.
-- "*data/vevey.csv" is a comma-delimted file.
-- "*data/villeneuve.csv" is a comma-delimted file.
-- "*data/yvoire.csv" is a comma-delimted file.
+- "*datas/*temperature_data*" is a folder containing:
+  - "*data/bouveret.csv" is a comma-delimted file.
+  - "*data/evian.csv" is a comma-delimted file.
+  - "*data/geneve.csv" is a comma-delimted file.
+  - "*data/hermance.csv" is a comma-delimted file.
+  - "*data/lugrin.csv" is a comma-delimted file.
+  - "*data/lutry.csv" is a comma-delimted file.
+  - "*data/morges.csv" is a comma-delimted file.
+  - "*data/nyon.csv" is a comma-delimted file.
+  - "*data/rolle.csv" is a comma-delimted file.
+  - "*data/saint-sulpice" is a comma-delimted file.
+  - "*data/thonon.csv" is a comma-delimted file.
+  - "*data/versoix.csv" is a comma-delimted file.
+  - "*data/vevey.csv" is a comma-delimted file.
+  - "*data/villeneuve.csv" is a comma-delimted file.
+  - "*data/yvoire.csv" is a comma-delimted file.
+- "*datas/harbor.csv" is a semicolon-delimited file.
 
 Internal files:
+  - "*internal/interior_points.csv" is a comma-delimted file.
+  - "*internal/physic_pred_Geneva_2024.csv" is a comma-delimted file.
+  - "*internal/physic_pred_Morges_2024.csv" is a comma-delimted file.
+  - "*internal/physic_pred_Geneva_2050.csv" is a comma-delimted file.
+  - "*internal/physic_pred_Morges_2050.csv" is a comma-delimted file.
+  - "*internal/stat_pred_gva_2024.csv" is a comma-delimted file.
+  - "*internal/stat_pred_morges_2024.csv" is a comma-delimted file.
+  - "*internal/stat_pred_gva_2050.csv" is a comma-delimted file.
+  - "*internal/stat_pred_morges_2050.csv" is a comma-delimted file.
 
 
 Outputs:
-- 
+- "*results/Plot temperature in Geneva in 2024.png" is a png file.
+- "*results/Plot temperature in Morges in 2024.png" is a png file.
+- "*results/Plot temperature in Geneva in 2050.png" is a png file.
+- "*results/Plot temperature in Morges in 2050.png" is a png file.
+- "*results/Plot temperature in Geneva in 2024 and 2050.png" is a png file.
+- "*results/Plot temperature in Morges in 2024 and 2050.png" is a png file.
+- REGRESSION LINEAIRE ET MAP
+You are free to save or delete them after the execution
 
+## Implementation details
 
-# SIE ENG270 Project Repository Example
+**Overview**
+- Both Python and C create csv files, on the base of the parameters of "*datas/*" folder and implemented
+parameters in the function such as the locations.
+- Python reads the created csv files and compute the visualisation part adding the plots in the "*results/" folder.
 
-## Project Description
+**Structure** In the directory "*code/" are located:
+- "*physic_model.c*"
+  - Initialize the location of interest and its useful parameters
+  - Create 5 lists of daily temperature for a given year adding each time a new parameter to complexify the physic model.
+  - Create a csv file for the two locations and years of interest containing these lists of temperature
+- "*physic_model.exe*" which simply allows the compilation of "*physic_model.c"
+CLEM FUNCTIONS
+- "*visualisation.py"
+  - Imports the 8 created csv files and 2 csv files coming from "*datas/*"
+  - Plots differents graphes based on the csv files
+  - Save the graphes in the "*results/*" folder
 
-This program simulates the [pollution exercise](https://sieprog.ch/#c/pollution) ("Le bateau pollueur").
-
-The program will:
-1. Read in inputs
-   - sensor locations found in "*data/capteurs.csv*",
-   - seed values for random number generation ("*data/seedvalues.json*"), and
-   - parameters of the simulations ("*data/paramsimul.json*").
-2. Generate a table of plausibilities ("*outputs/plausibilite.csv*").
-3. Plot the table of plausibilities ("*outputs/plausibilite.png*").
-
-## Project structure
-
-- "*data/*" contains input data
-- "*outputs/*" contains program outputs
-- "*src/*" contains program code
-- "*soln_sieprog/*" contains the original solution from sieprog.ch (in pure C) for comparison
-- ("*bin/*") generated after compiling C code
-- "*docs/*" contains a notebook illustrating use and validation of the code
-
-### Inputs and outputs
-
-Inputs:
-- "*data/capteur.csv*" is a tab-delimited file (not comma-separated).
-- "*data/seedvalues.json*" is a JSON file.
-- "*data/paramsimul.json*" is a JSON file.
-
-Outputs:
-- "*outputs/plausibilite.csv*" is a comma-delimted file.
-- "*outputs/plausibilite.png*" is an image file
-
-### Implementation details
-
-Overview:
-- The simulation is handled by C. The C program is compiled to a shared library, which is called by Python via the `ctypes` module.
-- Python handles most of the I/O, which includes reading sensor information and formatting the output of the single point simulation.
-- For the grid simulation, the C program directly writes each simulation result to a CSV file designated by the calling Python script.
-
-Structure. In the directory "*src/*":
-- "*simulategrid.py*":
-  - imports "*mylib.py*" as a module, which wraps the compiled C library file.
-  - reads in "*data/capteurs.csv*" and executes the C code.
-- "*analysis.py*":
-  - reads in the generated output ("*outputs/plausibilite.csv*") and makes the plot.
-
-In each Python code, the project root directory is assigned using 
-
-```{python}
-import sys
-from pathlib import Path
-ROOT = Path(sys.path[0]).parent
-```
-`sys.path[0]` is the directory of the script or noteoobk file, and not the working directory of the shell from which the code is called. This allows the following commands to produce equivalent output. Starting in the project root directory:
-```
-$ python src/simulategrid.py
-$ cd src && python simulategrid.py
-```
-This convention works for both Python scripts and Jupyter notebooks / Quarto documents, so the following two commands will also generate the same output.
-```
-$ quarto render docs/analysis.qmd
-$ cd docs && quarto render analysis.qmd
-```
 
 ## Instructions
 
-To reproduce results in the report, two steps should be followed:
+To reproduce results in the report, X steps should be followed. It's important to notice that the physic model contains some random module so the exact reproduction isn't possible, but the differences is implemented on purpose because the wheater isn't an exact science and the yearly temperature doesn't reproduce exactly for each year.
 
-1. Build (compile) the shared library.
-2. Run the program.
-
-To compile the C code, run the following line in the terminal from the project root directory (location of this README.md file):
-```{sh}
-make
-```
-This command will create a directory called bin/ and populated it with C object files, and the compiled .so file.
-
-To run the Python and C code, run the following line in the terminal from the project root directory:
-```{sh}
-bash run.sh
-```
-This command will run the program and generate all of the output described above.
-
-To generate documentation for the validation, run the following command from the root directory:
-```{sh}
-quarto render docs/analysis.qmd --to pdf
-```
-This generates the file "*docs/analysis.pdf*".
+A COMPLETER
 
 ## Requirements
 
-Versions of Python and C used are as follows. Optionally, the Quarto version is also included for rendering the "*docs/analysis.qmd*" file. 
+Versions of Python and C used are as follows.
 ```
 $ python --version
-Python 3.9.18
+Python 3.12.2
 
 $ gcc --version
-gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-
-$ quarto --version
-1.3.450
+Apple clang version 16.0.0
 ```
-
-The "*requirements.txt*" file for Python packages was generated with the command
-```{sh}
-conda list --export > requirements.txt
+The python libraries used were the following
 ```
-and deleting all but the relevant packages specifically used by this project.
+numpy 2.1.3
+
+pandas 2.2.3
+
+matplotlib 3.9.3
+
+scikit-learn 1.5.2
+
+scipy 1.14.1
+
+shapely 2.0.6
+```
 
 ## Credits
 
-The code is adapted from the [solutions](https://sieprog.ch/#c/pollution/solutions) of sieprog.ch.
+### Data
 
-## (***Extra notes for students***)
+The temperature datas in "*datas/temperature_datas" have been send by Nicholas Lindt, who drives a website about the temperature at surface of lake Geneva in differents places, with his agreement to use it. Here is his [website](https://lake.lindt.one).
 
-### Regarding relative paths
+The data file "*harbor.csv" comes from [Carto Leman](https://www.arcgis.com/apps/webappviewer/index.html?id=efb2bdccfdcf4fc18814426a63b5f6fa&extent=672740.9389%2C5810352.5672%2C705608.861%2C5825506.208%2C102100).
 
-When running python scripts from the command line:
-```{bash}
-python src/simulategrid.py
-```
-the working directory of the Python program is the project root (the location of this README.md file) and not "*src/*". 
+### Formulae
 
-When running the Python program after changing into the "*code/*" directory,
-```{bash}
-cd src
-python simulategrid.py
-```
-the working directory is "*src/*". (A word of caution - changing directories multiple times in shell scripts can be tricky since the program may end up in a different working directory than intended if any of the programs that are called exit with error.)
-
-The important point is that relative paths to input files and other files/directories should be relative to the working directory. 
-
-- If the Python program is run from the root directory, the relative path to "*capteurs.csv*" is "*data/capteurs.csv*". 
-- If the Python program is run from the "*code/*" directory, the relative path to "*capteurs.csv*" is "*../data/capteurs.csv*". 
-
-Using the `sys.path[0]` and `ROOT` convention as shown in this project example circumvents this ambiguity by anchoring all paths to `ROOT`.
-
-### Regarding the build process
-
-Note that to build on Windows, the "*Makefile*" line 
-```{lang-makefile}
-CFLAGS=-Wall -fPIC -O2
-```
-should be replaced with
-```{lang-makefile}
-CFLAGS=-Wall -fPIC -O2 -Dsrandom=srand -Drandom=rand
-```
-to account for the fact that `srand` and `rand` are to be used in place of `srandom` and `random`, respectively. It is possible to further automate this substitution by writing conditional statements in the "*Makefile*" based on the operating system - e.g.,
-```{lang-makefile}
-ifeq ($(OS), Windows_NT)
-    CCFLAGS += -Dsrandom=srand -Drandom=rand
-endif
-```
-Alteratively create separate makefiles for each operating system - e.g., "*Makefile.win*" and "*Makefile.linux*" and so on, and the user must rename the appropriate file on their machine to "*Makefile*" before calling `make`.
-
-The "*Makefile*" is a general build tool and is useful for projects with many files that need to be compiled. For simple cases, you can create a shell script called, for instance, "*build.bash*" in the root directory with the following contents:
-```{bash}
-#!/bin/bash
-mkdir -p bin
-gcc -Wall -fPIC -O2 -o bin/cmain.o -c code/cmain.c
-gcc -Wall -fPIC -O2 -o bin/cfunctions.o -c code/cfunctions.c -lm
-gcc -shared -o bin/clib.so bin/cmain.o bin/cfunctions.o
-```
-Then, the library files can be built with 
-```{bash}
-bash build.bash
-```
-before running `bash run.bash`.
+The function that calculate the MAET (Mean Annual Epilimnetic Temperature) relies on the study of [Ottosson and Abrahamsson](https://www.sciencedirect.com/science/article/pii/S0304380098000672?via%3Dihub) published on [ScienceDirect](https://www.sciencedirect.com/).
