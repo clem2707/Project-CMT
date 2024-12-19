@@ -123,15 +123,14 @@ def plot_2024(csv_physic, csv_statistic, csv_data, place, year):
 
     # Create X axes for each list
 
-    x_physic = np.arange(1, 366)    # X-axis for the physic model (1 to 365)
-    x_statistic = np.arange(1, 366)    # X-axis for the statistic model (1 to 365)
+    x_model = np.arange(1, 366)    # X-axis for the physic and statistic model (1 to 365)
     x_data = np.arange(1, 327)  # X-axis for the data list (1 to 326)
 
 
     # Plot the models as curves
 
-    plt.plot(x_physic, physic_temp, label="Physic prediction", color='b')
-    plt.plot(x_statistic, stat_temp, label="Statistic prediction", color='r')
+    plt.plot(x_model, physic_temp, label="Physic prediction", color='b')
+    plt.plot(x_model, stat_temp, label="Statistic prediction", color='r')
 
     # Plot the datas as points
 
@@ -150,6 +149,10 @@ def plot_2024(csv_physic, csv_statistic, csv_data, place, year):
     # Save the plot
 
     plt.savefig(f"results/Plot temperature in {place} in {year}")
+
+    # Clear the plot
+
+    plt.clf()
 
 
 
@@ -195,16 +198,15 @@ def plot_2050(csv_physic, csv_statistic, place, year):
             stat_temp.append(float(row[1]))  # Second column: temperatures with the statistical model predictions
 
 
-    # Create X axes for each list
+    # Create X axes for the lists
 
-    x_physic = np.arange(1, 366)    # X-axis for the physic model (1 to 365)
-    x_statistic = np.arange(1, 366)    # X-axis for the statistic model (1 to 365)
+    x = np.arange(1, 366)    # X-axis for the physic and statistic model (1 to 365)
 
 
     # Plot the models as curves
 
-    plt.plot(x_physic, physic_temp, label="Physic prediction", color='b')
-    plt.plot(x_statistic, stat_temp, label="Statistic prediction", color='r')
+    plt.plot(x, physic_temp, label="Physic prediction", color='b')
+    plt.plot(x, stat_temp, label="Statistic prediction", color='r')
 
     # Add labels and title
 
@@ -219,7 +221,78 @@ def plot_2050(csv_physic, csv_statistic, place, year):
     # Save the plot
 
     plt.savefig(f"results/Plot temperature in {place} in {year}")
+
+    # Clear the plot
+
+    plt.clf()
+
+
+
+def plot_2024_vs_2050(csv_physic_2024, csv_physic_2050, place):
+
+    """ This function takes two csv files and the place of interest as parameters. One csv contains the temperature computed with the physic model in 2024,
+        the other one contains the temperature computed with the physical model in 2050. The same way as in the two other functions we plot the temperatures.
+        It finally saves the plot in the 'results' folder."""
+
+    # Initialize lists to store the data
+
+    physic_temp_2024 = []
+    physic_temp_2050 = []
+
+
+    # Reading the CSV file for the physical model predictions
+
+    with open(csv_physic_2024, mode='r', encoding='utf-8') as file:
+
+        reader = csv.reader(file)
+        headers = next(reader)  # Read the first line (headers)
     
+        for row in reader:
+
+            # Extract the columns
+            physic_temp_2024.append(float(row[5]))  # Sixth column: temperatures with the physical model with all the parameters
+
+
+    # Reading the CSV file for the physical model predictions
+
+    with open(csv_physic_2050, mode='r', encoding='utf-8') as file:
+
+        reader = csv.reader(file)
+        headers = next(reader)  # Read the first line (headers)
+    
+        for row in reader:
+
+            # Extract the columns
+            physic_temp_2050.append(float(row[5]))  # Sixth column: temperatures with the physical model with all the parameters
+
+
+    # Create X axe
+
+    x = np.arange(1, 366)    # X-axis for the physic model (1 to 365)
+
+    # Plot the models as curves
+
+    plt.plot(x, physic_temp_2024, label="Physic prediction for 2024", color='b')
+    plt.plot(x, physic_temp_2050, label="Physic prediction for 2050", color='r')
+
+    # Add labels and title
+
+    plt.xlabel("Day of the year")
+    plt.ylabel("Temperature")
+    plt.title(f"Temperature of the surface of Lake Geneva near {place} in 2024 and 2050")
+
+    # Add a legend
+
+    plt.legend()
+
+    # Save the plot
+
+    plt.savefig(f"results/Plot temperature in {place} in 2024 and 2050")
+
+    # Clear the plot
+
+    plt.clf()
+
 
 # Call the functions
 
@@ -230,3 +303,7 @@ Morges_2024 = plot_2024(csv_physic_model_morges_2024, csv_stat_model_morges_2024
 Geneva_2050 = plot_2050(csv_physic_model_eaux_vives_2050, csv_stat_model_eaux_vives_2050, "Geneva", 2050)
 
 Morges_2050 = plot_2050(csv_physic_model_morges_2050, csv_stat_model_morges_2050, "Morges", 2050)
+
+Geneva_2024_2050 = plot_2024_vs_2050(csv_physic_model_eaux_vives_2024, csv_physic_model_eaux_vives_2050, "Geneva")
+
+Morges_2024_2050 = plot_2024_vs_2050(csv_physic_model_morges_2024, csv_physic_model_morges_2050, "Morges")
