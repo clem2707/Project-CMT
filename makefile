@@ -19,14 +19,14 @@ OUT = -o
 PHYSIC_FILE = code/physic_model.c
 
 # Specify the name of your Python files
-MAP_LAKE_FILE = code/map.py
-TEMPERATURE_STAT_PREDICTION_FILE = code/predictions_stat.py
-REEL_TEMP_FILE = code/reel_temp_stat.py
-DISPLAY_STAT_FILE = code/display.py
+MAP_LAKE_FILE = code/map_lake.py
+TEMPERATURE_STAT_PREDICTION_FILE = code/temp_stat_predictions_stat.py
+REEL_TEMP_FILE = code/reel_temp.py
+DISPLAY_STAT_FILE = code/display_stat.py
 VISUALISATION_FILE = code/visualisation.py
 
 ### ------ Default target -> order in which you want the files to be run ------ ###
-all: physic clean #run_first_python run_second_python run_third_python run_4_python run_5_python run_6_python run_7_python run_8_python run_9_python clean 
+all: physic_compile physic_execute run_first_python run_second_python run_third_python run_4_python run_5_python run_6_python run_7_python run_8_python run_9_python clean 
 
 # Arguments for map.py
 MAP_ARGS = "data/harbor.csv" "internal/interior_points.csv" "results/map_template.png"
@@ -40,8 +40,11 @@ DISPLAY_2024_ARGS = "./internal/temp_predictions_01_01_2024.csv" "internal/inter
 DISPLAY_reel_ARGS = "internal/reel_temp_01_01_2024.csv" "internal/interior_points.csv" "./results/lake_reel_01_01_2024.png"
 
 ### --- Line command (target) to compile the C file --- ###
-physic: $(PHYSIC_FILE)
+physic_compile: $(PHYSIC_FILE)
 	$(CC) $(PHYSIC_FILE) $(CFLAGS) $(LIBS) $(OUT) $(basename $(PHYSIC_FILE))
+
+physic_execute: 
+	./$(basename $(PHYSIC_FILE))
 
 ### --- Targets to run the Python files --- ###
 run_first_python:

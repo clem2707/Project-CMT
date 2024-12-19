@@ -292,8 +292,8 @@ int main() {
 
                 // Create a CSV file for this location
 
-                char filename[100];
-                snprintf(filename, sizeof(filename), "../internal/physic_pred_%s_%d.csv", location->location, 2024 + year);
+                char filename[1000];
+                snprintf(filename, sizeof(filename), "internal/physic_pred_%s_%d.csv", location->location, 2024 + year);
         
                 FILE *file = fopen(filename, "w");
                 if (file == NULL) {
