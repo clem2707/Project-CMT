@@ -5,7 +5,7 @@ from sklearn.linear_model import LinearRegression
 
 def predict_csv(file_path, date_str):
     """
-    Cette fonction prend en input : un fichier CSV contenant des archives de températures (depuis 2018 et toutes les 3 heures) d'un port du Geneva Lake, et une date.
+    Cette fonction prend en input : un fichier CSV contenant des archives de températures (depuis 2018 et toutes les 3 heures) d'un port du Geneva Lake, et une date pour laquelle on peut savoir la température sur tout le lac.
     Le but de cette fonction est de prédire statistiquement des températures du lac à un endroit précis, c'est-à-dire en entraînant un modèle sur les données à disposition.
     
     Elle filtre le csv entré afin d'avoir toutes les données passée du jour donné. Etant donné qu'on a plusieurs valeurs par jour, elle va faire une moyenne des valeurs par année (donc par jour d'une année précise). 
@@ -40,7 +40,7 @@ def predict_csv(file_path, date_str):
     temp_moyenne = df_flt.groupby('année')['temperature'].mean().reset_index()
 
     # Extraire les années (x) et les températures moyennes (y)
-    x = temp_moyenne['année'].values.reshape(-1, 1)
+    x = temp_moyenne['année'].values.reshape(-1, 1) # La fonction reshape met en forme x afin qu'il devienne une colonne. Cette mise en forme est essentielle pour la regression linéaire.
     y = temp_moyenne['temperature'].values
 
     # Modèle de régression linéaire
@@ -80,8 +80,8 @@ def predict_folder(folder_path, date_str, path_dest):
         # Utilisation de la fonction pour définir notre température prédite pour un csv
         temperature_pred = predict_csv(full_path, date_str)
 
-        x = x_values[i % len(x_values)]
-        y = y_values[i % len(y_values)]
+        # Relier la température prédite au bon élément de x et y.
+        x, y = x_values[i], y_values[i]
         
         # Ajouter les résultats pour chaque csv :
         # le nom est le nom du csv car il contient le nom du port, 
@@ -102,12 +102,12 @@ def predict_folder(folder_path, date_str, path_dest):
     
 
 
-def predict_year(file_path, year, path_dest): 
+def predict_year(file_path, year): 
     """
     Cette fonction prend en input : un fichier CSV d'archives de températures d'un port du lac Léman et une année.
     Elle utilise la fontion predict_csv et elle rentre en argument un csv et un jour de l'année qui va itérer sur 1 an (365 jours).
     La fonction utilisée predict_csv va retourner une température prédite pour un jour de l'année.
-    Etant donnée que le jour itère du 1er janvier au 31 décembre de l'année rentrer, on va finir avec un csv d'une taille de 365 (366 si bisextile).
+    Etant donnée que le jour itère du 1er janvier au 31 décembre de l'année rentrer, on va finir avec un csv d'une taille de 365.
     Le but est de pouvoir par la suite utiliser ce csv afin de plot sur un graphique pour pouvoir comparer nos prédictions (statistique et physique).
     
     """
@@ -137,11 +137,5 @@ def predict_year(file_path, year, path_dest):
     # Création d'un csv, en passant par un dataframe afin que ce soit bien présenté avec le nom des colonness
     # Ce csv contient donc les valeurs prédites avec les dates correspondant pour toute une année 
     annual_results_df = pd.DataFrame(all_results)
-    annual_results_df.to_csv(path_dest, index=False)
+    annual_results_df.to_csv(f"internal/annual_predictions_{year}.csv", index=False)
 
-#predict_folder("datas/temperature_data", "01/01/2025", 'internal/temp_predictions_winter2025.csv')
-
-predict_year("datas/temperature_data/geneve.csv", "2024", "internal/stat_pred_gva_2024.csv")
-predict_year("datas/temperature_data/geneve.csv", "2050", "internal/stat_pred_gva_2050.csv")
-predict_year("datas/temperature_data/morges.csv", "2024", "internal/stat_pred_morges_2024.csv")
-predict_year("datas/temperature_data/morges.csv", "2050", "internal/stat_pred_morges_2050.csv")
