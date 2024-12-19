@@ -19,17 +19,26 @@ typedef struct {
 } Location;
 
 
-// Generate 1 or -1 randomly
-
 int random_sign() {
+
+    /**
+ * Generates a random sign (+1 or -1).
+ * This function is used to determine whether a temperature wave will increase or decrease the temperature.
+ * */
     
     return (rand() % 2) * 2 - 1;
 }
 
 
-// Use the Box-Muller method to generate a random number from a normal distribution
-
 double random_normal(double mean, double stddev) {
+
+    /**
+ * Generates a random number from a normal distribution using the Box-Muller method.
+ *
+ * param mean: The mean of the normal distribution.
+ * param stddev: The standard deviation of the normal distribution.
+ * return double: A random value from the normal distribution.
+ */
     
     // Variables for the Box-Muller method
     double u1, u2, z0;
@@ -46,17 +55,29 @@ double random_normal(double mean, double stddev) {
 }
 
 
-// Generate a random uniform number between min and max
-
 double random_uniform(double min, double max) {
+
+    /**
+ * Generates a random uniform number between two specified bounds.
+ *
+ * param min: The minimum bound.
+ * param max: The maximum bound.
+ * return double: A random number between min and max.
+ */
 
     return min + (max - min) * ((double)rand() / RAND_MAX);
 }
 
 
-// Calculate the mean annual epilimnion temperature (MAET) based on location parameters
-
 double MAET(Location* location) {
+
+    /**
+ * Calculates the Mean Annual Epilimnion Temperature (MAET) based on location parameters.
+ * Uses the equation by Ottosson and Abrahamsson to calculate the temperature.
+ *
+ * param location: A pointer to a Location structure containing latitude, altitude, and continentality data.
+ * return double: The calculated MAET for the given location, rounded to 5 decimal places.
+ */
 
     // Ottosson and Abrahamsson equation
     double part1 = pow((750 / (90 - pow(location->latitude, 0.85))), 1.29);
@@ -71,9 +92,15 @@ double MAET(Location* location) {
 }
 
 
-// Calculate the day temperature variation, deltaT, based on the day of the year
-
 double deltaT(int day) {
+
+    /**
+ * Calculates the temperature variation (deltaT) for a specific day of the year.
+ * Models seasonal variations using a cosine function.
+ *
+ * param day: The day of the year (1–365).
+ * return double: The temperature variation for the given day.
+ */
 
     double max_delta_T = 13.0;  // Maximum temperature variation
     double min_delta_T = 4.0;   // Minimum temperature variation
@@ -88,17 +115,38 @@ double deltaT(int day) {
 }
 
 
-// Calculate the temperature Ts(t, y) for a given day and year
-
 double Ts(double initial_T0, double rate, double delta_T, double period, double phase, int day, int year) {
+
+    /**
+ * Calculates the surface temperature for a given day and year based on a sinusoidal model.
+ * Accounts for initial temperature, warming rate, seasonal variations, and day/year.
+ *
+ * param initial_T0: The initial temperature.
+ * param rate: The warming rate per year.
+ * param delta_T: The daily temperature variation.
+ * param period: The period of the seasonal cycle (e.g., 365 days).
+ * param phase: The phase offset in radians.
+ * param day: The day of the year.
+ * param year: The year number (e.g., 0 for the initial year (e.g. 2024)).
+ * return double: The calculated temperature for the given day and year.
+ */
 
     return initial_T0 + delta_T * sin((2 * PI / period) * day + phase) + rate * year;
 }
 
 
-// Generate random start days for temperature waves, ensuring no overlap
-
 void generate_waves(int* waves, int num_waves, int wave_duration, int max_days) {
+
+
+/**
+ * Generates non-overlapping random start days for temperature waves.
+ * Ensures that the generated wave periods do not overlap.
+ *
+ * param waves: An array to store the start days of the waves.
+ * param num_waves: The number of waves to generate.
+ * param wave_duration: The duration of each wave in days.
+ * param max_days: The maximum number of days in the period (e.g., 365 for one year).
+ */
 
     for (int i = 0; i < num_waves; i++) {
         
@@ -128,6 +176,19 @@ void generate_waves(int* waves, int num_waves, int wave_duration, int max_days) 
 
 void apply_waves(int* waves, int num_waves, int wave_duration, int day, double* temperature, double min_amplitude, double max_amplitude) {
 
+    /**
+ * Applies temperature adjustments due to extreme temperature waves on a given day.
+ * Adjusts the temperature value if the current day falls within the range of a wave.
+ *
+ * param waves: An array containing the start days of the waves.
+ * param num_waves: The number of waves to consider.
+ * param wave_duration: The duration of each wave in days.
+ * param day: The current day of the year.
+ * param temperature: A pointer to the temperature to adjust.
+ * param min_amplitude: The minimum amplitude of the wave.
+ * param max_amplitude: The maximum amplitude of the wave.
+ */
+
     for (int i = 0; i < num_waves; i++) {
 
         // Cold or warm wave
@@ -144,17 +205,32 @@ void apply_waves(int* waves, int num_waves, int wave_duration, int day, double* 
 }
 
 
-// Apply thermal inertia to adjust temperature towards the mean temperature
-
 double thermal_inertia(double initial_temp, double mean_temp, double inertia_factor) {
+
+    /**
+ * Applies thermal inertia to adjust the temperature towards the mean temperature.
+ * This models the lag effect in temperature changes due to thermal inertia.
+ *
+ * param initial_temp: The initial temperature.
+ * param mean_temp: The mean temperature.
+ * param inertia_factor: The factor that determines the strength of inertia (between 0 and 1).
+ * return double: The adjusted temperature after applying thermal inertia.
+ */
 
     return initial_temp * (1 - inertia_factor) + inertia_factor * mean_temp;
 }
 
 
-// Adjust temperature based on marine currents
-
 double marine_currents(double initial_temp, double current_factor) {
+
+    /**
+ * Adjusts the temperature based on marine current effects.
+ * This introduces random adjustments influenced by marine currents.
+ *
+ * param initial_temp:  The initial temperature.
+ * param current_factor: The factor that determines the strength of the current's effect.
+ * return double: The adjusted temperature after accounting for marine currents.
+ */
 
     double adjustment = random_uniform(-0.5, 0.5) * current_factor;
 
@@ -163,6 +239,14 @@ double marine_currents(double initial_temp, double current_factor) {
 
 
 int main() {
+
+    /**
+ * The main function initializes random seed, defines locations, and simulates temperatures.
+ * Generates CSV files containing daily temperature data for each location over a specified period.
+ * Models the effects of warming rates, noise, extreme temperature waves, thermal inertia, and marine currents.
+ *
+ * return int: Returns 0 if the program executes successfully.
+ */
 
     srand(time(NULL));  // Initialize random number generator
 
@@ -199,7 +283,7 @@ int main() {
         double initial_temp = MAET(location); // Initial mean annual temperature (°C)
 
         // Loop on the years
-//./internal/%s_temperatures_%d.csv
+
         for (int year = 0; year < YEARS; year++) {
             
             if (year == 0 || year == 26) {  // Choose 2024 and 2050
