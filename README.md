@@ -11,16 +11,16 @@ This program wil:
   - datas found in "*datas/temperature_data*" folder containing 15 temperature datas csv files of 15 places around the lake, and a csv file containing a high number of coordonates of ports around the lake .
 2. Generate
   - 4 csv files of temperature datas from the physical model
-    - "physic_pred_Geneva_2024.csv"
-    - "physic_pred_Morges_2024.csv"
-    - "physic_pred_Geneva_2050.csv"
-    - "physic_pred_Morges_2050.csv"
+    - "*physic_pred_Geneva_2024.csv*"
+    - "*physic_pred_Morges_2024.csv*"
+    - "*physic_pred_Geneva_2050.csv*"
+    - "*physic_pred_Morges_2050.csv*"
   - 4 csv files of temperature datas from the statistic model
-    - "stat_pred_gva_2024.csv"
-    - "stat_pred_morges_2024.csv"
-    - "stat_pred_gva_2050.csv"
-    - "stat_pred_morges_2050.csv"
-  - "interior_poinst.csv" a csv file containing x and y values of the ports
+    - "*stat_pred_gva_2024.csv*"
+    - "*stat_pred_morges_2024.csv*"
+    - "*stat_pred_gva_2050.csv*"
+    - "*stat_pred_morges_2050.csv*"
+  - "*interior_poinst.csv*" a csv file containing x and y values of the ports
 3. Plot differents graphes with both models, and a statistically based temperature map of lake Geneva
 
 ## Project structure
@@ -30,47 +30,47 @@ This program wil:
 edited by the program and should not be manually modified.
 - "*results/*" contains saved .png files of plotted results
 - "*code/*" contains program code
-
+C:\Users\svenp\Documents\EPFL\CMT\Project-CMT\datas\temperature_data\bouveret.csv
 ### Inputs and outputs
 
 Inputs:
-- "*datas/*temperature_data*" is a folder containing:
-  - "*data/bouveret.csv" is a comma-delimted file.
-  - "*data/evian.csv" is a comma-delimted file.
-  - "*data/geneve.csv" is a comma-delimted file.
-  - "*data/hermance.csv" is a comma-delimted file.
-  - "*data/lugrin.csv" is a comma-delimted file.
-  - "*data/lutry.csv" is a comma-delimted file.
-  - "*data/morges.csv" is a comma-delimted file.
-  - "*data/nyon.csv" is a comma-delimted file.
-  - "*data/rolle.csv" is a comma-delimted file.
-  - "*data/saint-sulpice" is a comma-delimted file.
-  - "*data/thonon.csv" is a comma-delimted file.
-  - "*data/versoix.csv" is a comma-delimted file.
-  - "*data/vevey.csv" is a comma-delimted file.
-  - "*data/villeneuve.csv" is a comma-delimted file.
-  - "*data/yvoire.csv" is a comma-delimted file.
-- "*datas/harbor.csv" is a semicolon-delimited file.
+- "*datas/temperature_data*" is a folder containing:
+  - "*datas/temperature_data/bouveret.csv*" is a comma-delimted file.
+  - "*datas/temperature_data/evian.csv*" is a comma-delimted file.
+  - "*datas/temperature_data/geneve.csv*" is a comma-delimted file.
+  - "*datas/temperature_data/hermance.csv*" is a comma-delimted file.
+  - "*datas/temperature_data/lugrin.csv*" is a comma-delimted file.
+  - "*datas/temperature_data/lutry.csv*" is a comma-delimted file.
+  - "*datas/temperature_data/morges.csv*" is a comma-delimted file.
+  - "*datas/temperature_data/nyon.csv*" is a comma-delimted file.
+  - "*datas/temperature_data/rolle.csv*" is a comma-delimted file.
+  - "*datas/temperature_data/saint-sulpice.csv*" is a comma-delimted file.
+  - "*datas/temperature_data/thonon.csv*" is a comma-delimted file.
+  - "*datas/temperature_data/versoix.csv*" is a comma-delimted file.
+  - "*datas/temperature_data/vevey.csv*" is a comma-delimted file.
+  - "*datas/temperature_data/villeneuve.csv*" is a comma-delimted file.
+  - "*datas/temperature_data/yvoire.csv*" is a comma-delimted file.
+- "*datas/harbor.csv*" is a semicolon-delimited file.
 
 Internal files:
-  - "*internal/interior_points.csv" is a comma-delimted file.
-  - "*internal/physic_pred_Geneva_2024.csv" is a comma-delimted file.
-  - "*internal/physic_pred_Morges_2024.csv" is a comma-delimted file.
-  - "*internal/physic_pred_Geneva_2050.csv" is a comma-delimted file.
-  - "*internal/physic_pred_Morges_2050.csv" is a comma-delimted file.
-  - "*internal/stat_pred_gva_2024.csv" is a comma-delimted file.
-  - "*internal/stat_pred_morges_2024.csv" is a comma-delimted file.
-  - "*internal/stat_pred_gva_2050.csv" is a comma-delimted file.
-  - "*internal/stat_pred_morges_2050.csv" is a comma-delimted file.
+  - "*internal/interior_points.csv*" is a comma-delimted file.
+  - "*internal/physic_pred_Geneva_2024.csv*" is a comma-delimted file.
+  - "*internal/physic_pred_Morges_2024.csv*" is a comma-delimted file.
+  - "*internal/physic_pred_Geneva_2050.csv*" is a comma-delimted file.
+  - "*internal/physic_pred_Morges_2050.csv*" is a comma-delimted file.
+  - "*internal/stat_pred_gva_2024.csv*" is a comma-delimted file.
+  - "*internal/stat_pred_morges_2024.csv*" is a comma-delimted file.
+  - "*internal/stat_pred_gva_2050.csv*" is a comma-delimted file.
+  - "*internal/stat_pred_morges_2050.csv*" is a comma-delimted file.
 
 
 Outputs:
-- "*results/Plot temperature in Geneva in 2024.png" is a png file.
-- "*results/Plot temperature in Morges in 2024.png" is a png file.
-- "*results/Plot temperature in Geneva in 2050.png" is a png file.
-- "*results/Plot temperature in Morges in 2050.png" is a png file.
-- "*results/Plot temperature in Geneva in 2024 and 2050.png" is a png file.
-- "*results/Plot temperature in Morges in 2024 and 2050.png" is a png file.
+- "*results/Plot temperature in Geneva in 2024.png*" is a png file.
+- "*results/Plot temperature in Morges in 2024.png*" is a png file.
+- "*results/Plot temperature in Geneva in 2050.png*" is a png file.
+- "*results/Plot temperature in Morges in 2050.png*" is a png file.
+- "*results/Plot temperature in Geneva in 2024 and 2050.png*" is a png file.
+- "*results/Plot temperature in Morges in 2024 and 2050.png*" is a png file.
 - REGRESSION LINEAIRE ET MAP
 You are free to save or delete them after the execution
 
@@ -86,9 +86,9 @@ parameters in the function such as the locations.
   - Initialize the location of interest and its useful parameters
   - Create 5 lists of daily temperature for a given year adding each time a new parameter to complexify the physic model.
   - Create a csv file for the two locations and years of interest containing these lists of temperature
-- "*physic_model.exe*" which simply allows the compilation of "*physic_model.c"
+- "*physic_model.exe*" which simply allows the compilation of "*physic_model.c*"
 CLEM FUNCTIONS
-- "*visualisation.py"
+- "*visualisation.py*"
   - Imports the 8 created csv files and 2 csv files coming from "*datas/*"
   - Plots differents graphes based on the csv files
   - Save the graphes in the "*results/*" folder
