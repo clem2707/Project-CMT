@@ -142,9 +142,10 @@ def plot_2024(csv_physic, csv_statistic, csv_data, place, year):
 
     plt.legend()
 
-    # Display the plot
+    # Save the plot
 
-    plt.show()
+    plt.savefig(f"results/Plot temperature in {place} in {year}")
+
 
 
 
@@ -215,10 +216,10 @@ def plot_2050(csv_physic, csv_statistic, place, year):
 
 # Call the functions
 
-Geneva_2024 = plot_2024(csv_physic_model_eaux_vives_2024, csv_stat_model_eaux_vives_2024, csv_data_eaux_vives_2024, "Geneva")
+Geneva_2024 = plot_2024(csv_physic_model_eaux_vives_2024, csv_stat_model_eaux_vives_2024, csv_data_eaux_vives_2024, "Geneva", 2024)
 
-Morges_2024 = plot_2024(csv_physic_model_morges_2024, csv_stat_model_morges_2024, csv_data_morges_2024, "Morges")
+Morges_2024 = plot_2024(csv_physic_model_morges_2024, csv_stat_model_morges_2024, csv_data_morges_2024, "Morges", 2024)
 
-Geneva_2050 = plot_2050(csv_physic_model_eaux_vives_2050, csv_stat_model_eaux_vives_2050, "Geneva")
+Geneva_2050 = plot_2050(csv_physic_model_eaux_vives_2050, csv_stat_model_eaux_vives_2050, "Geneva", 2050)
 
-Morges_2050 = plot_2050(csv_physic_model_morges_2050, csv_stat_model_morges_2050, "Morges")
+Morges_2050 = plot_2050(csv_physic_model_morges_2050, csv_stat_model_morges_2050, "Morges", 2050)
