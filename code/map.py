@@ -32,7 +32,7 @@ def map(path_data, path_dest, path_results):
     x_min, y_min, x_max, y_max = lake_polygon.bounds 
     x_range = np.arange(x_min, x_max, 0.01) # Indice pour les coordonnées de x qui vont de x_min jusqu'à x_max 
     y_range = np.arange(y_min, y_max, 0.01)
-    # Nous avons choisi un pas de 100 mètres car notre modèle n'est pas très précis, donc ça ne sert pas d'avoir plus de valeurs
+    # Nous avons choisi un pas pas trop grand car notre modèle n'est pas très précis, donc ça ne sert pas d'avoir plus de valeurs
 
     # On veut remplir le lac de points afin de pouvoir calculer pas la suite leur température 
     # On va crée des objets de type points avec chaque point dans notre lac
@@ -51,7 +51,7 @@ def map(path_data, path_dest, path_results):
 
     # Tracer les points à l'intérieur du lac Léman pour visualiser notre pas
     interior_points = np.array(interior_points)
-    plt.scatter(interior_points[:, 0], interior_points[:, 1], color="green", s=50, label="Interior Points")
+    plt.scatter(interior_points[:, 0], interior_points[:, 1], color="green", s=2, label="Interior Points")
 
     # Affichage des ports avec des points rouges
     plt.scatter(harbor_coord[:, 0], harbor_coord[:, 1], color="red", label="Harbors") 
@@ -67,3 +67,4 @@ def map(path_data, path_dest, path_results):
     # Sauvegarder les points interieurs dans un fichier csv pour pouvoir l'utiliser par la suite
     interior_points_df = pd.DataFrame(interior_points, columns=['x', 'y'])
     interior_points_df.to_csv(path_dest, index=False)
+map("datas/harbor.csv", "internal/int_points.csv", "results/lake_vide.png")

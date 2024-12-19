@@ -5,63 +5,57 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 
 def linear_regression(file_name, path_results):
-    df = pd.read_csv(file_name, quotechar='"')
+    """
+    ** Visualisation des regressions polynomiales des températures depuis 2018, par année, à un endroit donné **
 
-    # Nettoyer les noms de colonnes (supprimer les espaces et les guillemets)
+    La fonction prend en input : un fichier CSV contenant des archives de températures (depuis 2018 et toutes les 3 heures) d'un port du Geneva Lake, un chemin pour stocker sous forme de png le graphe.
+    Le but est de créer un graphe qui approxime les variations des températures au cours de l'année dans un port donné.
+    Cela afin de pouvoir analyser les variations des températures d'année en année.   
+    """
+    # Ouvrir, lire le csv et le convertir afin qu'il soit utilisable
+    df = pd.read_csv(file_name, quotechar='"')
     df.columns = df.columns.str.strip().str.replace('`', '')
 
-    # Convertir la colonne 'date' en datetime
+    # Conversion : 'date' en datetime et température en float
     df['date'] = pd.to_datetime(df['date'], format='%d/%m/%Y %H:%M', errors='coerce')
-
-    # Convertir la colonne 'temperature' en float
     df['temperature'] = pd.to_numeric(df['temperature'], errors='coerce')
 
     # Extraire l'année, le jour du mois, et l'heure de la date
     df['year'] = df['date'].dt.year
     df['day_of_year'] = df['date'].dt.dayofyear
 
-    # Calculer la température moyenne par jour (en moyenne sur chaque jour)
+    # Moyenne des températures par jour 
     daily_avg = df.groupby(['year', 'day_of_year'])['temperature'].mean().reset_index()
 
-    # Créer un modèle de régression polynomiale
-    degree = 4  # Degré du polynôme (ex : 3 pour un polynôme de degré 3)
-
-    # Tracer les régressions pour chaque année
+    # Graphe xy
     plt.figure(figsize=(12, 8))
 
-    # Pour chaque année, effectuer une régression polynomiale sur les moyennes quotidiennes
+    # Régression polynomiale sur les moyennes quotidiennes pour chaque année
     for year in daily_avg['year'].unique():
-        # Filtrer les données pour l'année donnée
+        # Filtrer les données pour une année 
         df_year = daily_avg[daily_avg['year'] == year]
 
-        # Préparer les données pour la régression (jour de l'année comme X, température comme y)
-        X = df_year['day_of_year'].values.reshape(-1, 1)
+        # Préparer les données pour la régression (x: jour , y: température)
+        x = df_year['day_of_year'].values.reshape(-1, 1)
         y = df_year['temperature'].values
 
         # Appliquer la régression polynomiale
-        poly = PolynomialFeatures(degree=degree)
-        X_poly = poly.fit_transform(X)  # Transformation des jours en polynôme
+        poly = PolynomialFeatures(degree=4)
+        x_poly = poly.fit_transform(x)  # Transformation des jours en polynôme
         model = LinearRegression()
-        model.fit(X_poly, y)  # Ajustement du modèle
+        model.fit(x_poly, y) # Entrainer le model
 
-        # Prédire les valeurs de température pour l'année en question
-        y_pred = model.predict(X_poly)
+        # Tracer la courbe de régression polynomiale d'une année
+        # Utilisation de la fonction prédict pour tracer la courbe, mais génère pas de nouvelles données
+        plt.plot(df_year['day_of_year'], model.predict(x_poly), label=f'Régression polynomiale {year}')
 
-        # Tracer les résultats (régression polynomiale)
-        plt.plot(df_year['day_of_year'], y_pred, label=f'Régression {year}')
-
-        # Tracer les points réels pour l'année (température moyenne quotidienne)
-        #plt.scatter(df_year['day_of_year'], df_year['temperature'], label=f'Données réelles {year}', alpha=0.5)
-
-    # Ajouter des labels et un titre
     plt.xlabel('Jour de l\'année')
     plt.ylabel('Température (°C)')
     plt.title(f'Regression polynomiale des températures moyennes quotidiennes pour chaque année')
     plt.legend()
-    plt.grid(True)
     plt.savefig(path_results)
-    plt.close()
 
+# Exemple d'utilisation de la fonction
 file = "datas/temperature_data/geneve.csv"  
-path_results = "results/graph_linear_regression_geneve"
+path_results = "results/graph_linear_regression_geneve.png"
 linear_regression(file, path_results)

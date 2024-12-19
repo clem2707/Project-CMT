@@ -2,8 +2,15 @@ import os
 import pandas as pd
 from datetime import datetime, timedelta
 
-def process_csv_files(folder_path, date_str, path_dest):
-
+def reel_temp(folder_path, date_str, path_dest):
+    """
+    Cette fonction est une fonction inspirée de celles dans "code/predictions_stat.py", elle prend en input : un dossier contenant des fichiers CSV d'archives de températures de chacun des ports du Geneva Lake, une date et un chemin pour stocker ses resultats.
+    Le but de cette fonction est d'extraire les données pour une date précise de chaque csv du dossier. 
+    Dans le but d'obtenir un csv similaire à celui retourné par la fonction predict_folder.
+    Nous allons utiliser les deux csv pour pouvoir comparer avec les vraies valeurs pour analyser la fiabilité de nos prédictions.
+    Notre CSV de sortie, contiendra 5 colonnes : nom du port, date, réelle température, coordonnées x et coordonnées y. 
+    Avant d'extraire nos températures, nous allons préremplir notre liste de résultats avec les paramètres qui ne changent pas. Ces paramètres sont les coordonnées x et y et on les met sur ce csv afin de faciliter l'étape de la visualisation.
+    """
     # Initialiser une liste vide pour stocker les résultats
     results = []
 
@@ -23,7 +30,6 @@ def process_csv_files(folder_path, date_str, path_dest):
             
             # Conversion en datetime : la colonne 'date' du csv et la date donnée en paramètre
             df['date'] = pd.to_datetime(df['date'], format='%d/%m/%Y %H:%M', errors='coerce')
-
             date = datetime.strptime(date_str, '%d/%m/%Y')
 
             # On isole le jour et le mois recherchés afin de faciliter le filtrage du csv
@@ -33,23 +39,22 @@ def process_csv_files(folder_path, date_str, path_dest):
             df_flt = df[(df['date'].dt.day == jour_cible) & (df['date'].dt.month == mois_cible) & (df['date'].dt.year == annee_cible)].copy()
 
             # Calculer la température moyenne pour la date donnée
-            temperature_pred = df_flt['temperature'].mean()
+            temperature = df_flt['temperature'].mean()
 
-            x = x_values[i % len(x_values)]
-            y = y_values[i % len(y_values)]
+            x = x_values[i]
+            y = y_values[i]
 
             # Ajouter le résultat à la liste
             results.append({
                 'file_name': file_name,
                 'date': date_str,
-                'predicted_temperature': temperature_pred,
+                'predicted_temperature': temperature,
                 'x': x,
                 'y': y
             })
 
-    # Convertir la liste des résultats en DataFrame
+    # Création d'un csv, en passant par un dataframe afin que ce soit bien présenté avec le nom des colonness
+    # path_dest représente l'endroit ou sera répertorié notre csv
     results_df = pd.DataFrame(results)
-    
-    # Sauvegarder le DataFrame des résultats dans un fichier CSV
     results_df.to_csv(path_dest, index=False)
 

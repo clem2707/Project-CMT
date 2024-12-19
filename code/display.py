@@ -5,6 +5,7 @@ from scipy.spatial import cKDTree
 
 def display_stat(predicted_data_path, interior_points_path, path_results):
     """
+    #3. Visualization of GVA Lake
     Cette fontion prend en input : les chemins des températures prédites faites au point 2 et des points interrieurs du lac fait au point 1. 
     Les buts de cette fonction est : d'afficher nos résultats de prédictions de températures et d'aller plus loin en faisant une interpolation.
 
@@ -15,7 +16,6 @@ def display_stat(predicted_data_path, interior_points_path, path_results):
     On finit par afficher nos résultats sur la carte. 
     
     """
-    print("** #3. Print of the predected map of GVA Lake **")
 
     # Charger et lire les données les CSV crés précedemment (températures prédites +  points à l'intérieur du lac)
     predicted_data = pd.read_csv(predicted_data_path)
@@ -29,7 +29,7 @@ def display_stat(predicted_data_path, interior_points_path, path_results):
     tree = cKDTree(predicted_points)
 
     # Définir une distance maximale pour l'interpolation
-    max_distance = 0.1  # Ajustez cette valeur selon vos besoins
+    max_distance = 0.2 # Il prend en compte les voisins du points qui sont jusqu'à 2km
 
     # Initialiser un tableau pour stocker les températures interpolées
     interior_temperatures = []
@@ -59,28 +59,23 @@ def display_stat(predicted_data_path, interior_points_path, path_results):
     vmin -= 0.05 * range_diff  # réduire la limite inférieure de 5%
     vmax += 0.05 * range_diff  # augmenter la limite supérieure de 5%
 
-    # Afficher la carte des températures interpolées avec les points prédits et les points intérieurs du lac Léman
-    plt.figure(figsize=(10, 6))
-
+    # Graph xy
     # Points prédits
     sc_predicted = plt.scatter(predicted_data['x'], predicted_data['y'], c=temperatures, cmap='coolwarm', edgecolors='white', s=100, label='Predicted Data Points')
 
     # Points intérieurs
     sc_interior = plt.scatter(interior_points['x'], interior_points['y'], c=interior_points['interpolated_temperature'], cmap='coolwarm', s=10, label="Points à l'intérieur du lac")
 
-    # Ajouter une barre de couleur
+    # Echelle de couleur
     plt.colorbar(sc_interior, label='Temperature (°C)', extend='both')
-
-    # Ajuster l'échelle de couleur
     sc_predicted.set_clim(vmin, vmax)
     sc_interior.set_clim(vmin, vmax)
 
-    # Graphe
     plt.xlabel('Longitude (x)')
     plt.ylabel('Latitude (y)')
     plt.title('Interpolated Temperature Map for Interior Points of Geneva Lake')
     plt.legend()
-    plt.savefig(path_results)
-    plt.close()
 
-display_stat('internal/temp_predictions_winter2025.csv', "internal/interior_points.csv", "results/lake_winter2025.png")
+
+display_stat("internal/Lake_pred2024.csv", "internal/interior_points.csv", "results/Llake_pred2024.png")
+display_stat("internal/Lake_reel2024.csv", "internal/interior_points.csv", "results/LAke_reel2024.png")

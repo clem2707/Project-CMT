@@ -139,3 +139,6 @@ def predict_year(file_path, year):
     annual_results_df = pd.DataFrame(all_results)
     annual_results_df.to_csv(f"internal/annual_predictions_{year}.csv", index=False)
 
+
+predict_folder("datas/temperature_data", "01/01/2024", "internal/Lake_pred2024.csv")
+
