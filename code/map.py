@@ -71,3 +71,6 @@ def map(path_data, path_dest, path_results):
     print("Interior points of the lake")
     print(interior_points_df.head())
     interior_points_df.to_csv(path_dest, index=False)
+
+
+map("datas/harbor.csv", "internal/interior_points.csv", "results/map_template.png")

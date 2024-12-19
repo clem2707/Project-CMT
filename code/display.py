@@ -83,4 +83,4 @@ def display_stat(predicted_data_path, interior_points_path, path_results):
     plt.savefig(path_results)
     plt.close()
 
-display_stat("internal/predicted_temperature.csv", "internal/interior_points.csv", "./results/lake_final_predictions.png")
+display_stat('internal/temp_predictions_winter2025.csv', "internal/interior_points.csv", "results/lake_winter2025.png")
