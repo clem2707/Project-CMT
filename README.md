@@ -87,7 +87,11 @@ parameters in the function such as the locations.
   - Create 5 lists of daily temperature for a given year adding each time a new parameter to complexify the physic model.
   - Create a csv file for the two locations and years of interest containing these lists of temperature
 - "*physic_model.exe*" which simply allows the compilation of "*physic_model.c*"
-CLEM FUNCTIONS
+- "*map_lake.py*" creates a map of Lake Geneva based on a list of harbors and their coordinates, outputs a csv with all points inside the lake
+- "*temp_stat_predictions.py*"
+- "*real_temp.py*"
+- "*display_stat.py*"
+- "*linear_regression.py*"
 - "*visualisation.py*"
   - Imports the 8 created csv files and 2 csv files coming from "*datas/*"
   - Plots differents graphes based on the csv files
