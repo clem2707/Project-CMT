@@ -13,7 +13,7 @@ OUT = -o
 
 ### ------ Setting up the compiling of Python files ------ ###
 # Specify the Python interpreter - use your own. 
-PYTHON = /opt/anaconda3/envs/cmt/bin/python
+#PYTHON = /opt/anaconda3/envs/cmt/bin/python
 
 # Specify file names and their relative paths
 PHYSIC_FILE = code/physic_model.c
