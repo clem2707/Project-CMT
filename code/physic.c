@@ -169,10 +169,10 @@ int main() {
 
     // Define locations
     Location morges = {"Morges", 46.503533903991766, 371.90, 0.01570};      // At the surface (0.2m depth), near the shore
-    Location eaux_vives = {"Eaux-vives", 46.2110157511242656, 371.90, 0.14770};     // At the surface (0.2m depth), near the shore
+    Location geneva = {"Geneva", 46.2110157511242656, 371.90, 0.14770};     // At the surface (0.2m depth), near the shore
     
     // List of locations
-    Location locations[] = {morges, eaux_vives};
+    Location locations[] = {morges, geneva};
     int num_locations = sizeof(locations) / sizeof(locations[0]);  // Number of locations
 
 
@@ -209,7 +209,7 @@ int main() {
                 // Create a CSV file for this location
 
                 char filename[100];
-                snprintf(filename, sizeof(filename), "../internal/%s_temperatures_%d.csv", location->location, 2024 + year);
+                snprintf(filename, sizeof(filename), "../internal/physic_pred_%s_%d.csv", location->location, 2024 + year);
         
                 FILE *file = fopen(filename, "w");
                 if (file == NULL) {

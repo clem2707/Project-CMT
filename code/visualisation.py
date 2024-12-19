@@ -6,25 +6,25 @@ import numpy as np
 
 # Csv Geneva 2024
 
-csv_physic_model_eaux_vives_2024 = "internal/Eaux-vives_temperatures_2024.csv"  # Physic csv file for Geneva in 2024
-csv_stat_model_eaux_vives_2024 = "internal/annual_predictions_2025.csv" # Statistic csv file  for Geneva in 2024
+csv_physic_model_eaux_vives_2024 = "internal/physic_pred_Geneva_2024.csv"  # Physic csv file for Geneva in 2024
+csv_stat_model_eaux_vives_2024 = "internal/stat_pred_gva_2024.csv" # Statistic csv file  for Geneva in 2024
 csv_data_eaux_vives_2024 = "datas/temperature_data/geneve.csv"  # Data csv file for Geneva in 2024
 
 # Csv Morges 2024
 
-csv_physic_model_morges_2024 = "internal/Morges_temperatures_2024.csv"  # Physic csv file for Morges in 2024
-csv_stat_model_morges_2024 = "internal/annual_predictions_2025.csv" # Statistic csv file  for Morges in 2024
+csv_physic_model_morges_2024 = "internal/physic_pred_Morges_2024.csv"  # Physic csv file for Morges in 2024
+csv_stat_model_morges_2024 = "internal/stat_pred_morges_2024.csv" # Statistic csv file  for Morges in 2024
 csv_data_morges_2024 = "datas/temperature_data/morges.csv"  # Data csv file for Morges in 2024
 
 # Csv Geneva 2050
 
-csv_physic_model_eaux_vives_2050 = "internal/Eaux-vives_temperatures_2050.csv"  # Physic csv file for Geneva in 2050
-csv_stat_model_eaux_vives_2050 = "internal/annual_predictions_2025.csv" # Statistic csv file  for Geneva in 2050
+csv_physic_model_eaux_vives_2050 = "internal/physic_pred_Geneva_2050.csv"  # Physic csv file for Geneva in 2050
+csv_stat_model_eaux_vives_2050 = "internal/stat_pred_gva_2050.csv" # Statistic csv file  for Geneva in 2050
 
 # Csv Morges 2050
 
-csv_physic_model_morges_2050 = "internal/Morges_temperatures_2024.csv"  # Physic csv file for Morges in 2050
-csv_stat_model_morges_2050= "internal/annual_predictions_2025.csv" # Statistic csv file  for Morges in 2050
+csv_physic_model_morges_2050 = "internal/physic_pred_Morges_2050.csv"  # Physic csv file for Morges in 2050
+csv_stat_model_morges_2050= "internal/stat_pred_morges_2050.csv" # Statistic csv file  for Morges in 2050
 
 
 # The function use physic and statistic model and acutal datas to plot the temperature in 2024
@@ -145,6 +145,7 @@ def plot_2024(csv_physic, csv_statistic, csv_data, place, year):
     # Save the plot
 
     plt.savefig(f"results/Plot temperature in {place} in {year}")
+    plt.show()
 
 
 
@@ -203,7 +204,7 @@ def plot_2050(csv_physic, csv_statistic, place, year):
 
     plt.xlabel("Day of the year")
     plt.ylabel("Temperature")
-    plt.title(f"Temperature of the surface of Lake Geneva near {place} in 2024")
+    plt.title(f"Temperature of the surface of Lake Geneva near {place} in {year}")
 
     # Add a legend
 
@@ -212,6 +213,7 @@ def plot_2050(csv_physic, csv_statistic, place, year):
     # Save the plot
 
     plt.savefig(f"results/Plot temperature in {place} in {year}")
+    plt.show()
 
 
 # Call the functions
