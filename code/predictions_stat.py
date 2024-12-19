@@ -102,7 +102,7 @@ def predict_folder(folder_path, date_str, path_dest):
     
 
 
-def predict_year(file_path, year): 
+def predict_year(file_path, year, path_dest): 
     """
     Cette fonction prend en input : un fichier CSV d'archives de températures d'un port du lac Léman et une année.
     Elle utilise la fontion predict_csv et elle rentre en argument un csv et un jour de l'année qui va itérer sur 1 an (365 jours).
@@ -137,7 +137,11 @@ def predict_year(file_path, year):
     # Création d'un csv, en passant par un dataframe afin que ce soit bien présenté avec le nom des colonness
     # Ce csv contient donc les valeurs prédites avec les dates correspondant pour toute une année 
     annual_results_df = pd.DataFrame(all_results)
-    annual_results_df.to_csv(f"internal/annual_predictions_{year}.csv", index=False)
+    annual_results_df.to_csv(path_dest, index=False)
 
-predict_folder("datas/temperature_data", "01/01/2025", 'internal/temp_predictions_winter2025.csv')
+#predict_folder("datas/temperature_data", "01/01/2025", 'internal/temp_predictions_winter2025.csv')
 
+predict_year("datas/temperature_data/geneve.csv", "2024", "internal/stat_pred_gva_2024.csv")
+predict_year("datas/temperature_data/geneve.csv", "2050", "internal/stat_pred_gva_2050.csv")
+predict_year("datas/temperature_data/morges.csv", "2024", "internal/stat_pred_morges_2024.csv")
+predict_year("datas/temperature_data/morges.csv", "2050", "internal/stat_pred_morges_2050.csv")
