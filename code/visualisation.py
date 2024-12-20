@@ -4,30 +4,6 @@ import numpy as np
 import sys
 
 
-# File paths for the CSV files
-
-# Csv Geneva 2024
-
-#csv_physic_model_eaux_vives_2024 = "internal/physic_pred_Geneva_2024.csv"  # Physic csv file for Geneva in 2024
-#csv_stat_model_eaux_vives_2024 = "internal/stat_pred_gva_2024.csv" # Statistic csv file  for Geneva in 2024
-#csv_data_eaux_vives_2024 = "datas/temperature_data/geneve.csv"  # Data csv file for Geneva in 2024
-
-# Csv Morges 2024
-
-#csv_physic_model_morges_2024 = "internal/physic_pred_Morges_2024.csv"  # Physic csv file for Morges in 2024
-#csv_stat_model_morges_2024 = "internal/stat_pred_morges_2024.csv" # Statistic csv file  for Morges in 2024
-#csv_data_morges_2024 = "datas/temperature_data/morges.csv"  # Data csv file for Morges in 2024
-
-# Csv Geneva 2050
-
-#csv_physic_model_eaux_vives_2050 = "internal/physic_pred_Geneva_2050.csv"  # Physic csv file for Geneva in 2050
-#csv_stat_model_eaux_vives_2050 = "internal/stat_pred_gva_2050.csv" # Statistic csv file  for Geneva in 2050
-
-# Csv Morges 2050
-
-#csv_physic_model_morges_2050 = "internal/physic_pred_Morges_2050.csv"  # Physic csv file for Morges in 2050
-#csv_stat_model_morges_2050= "internal/stat_pred_morges_2050.csv" # Statistic csv file  for Morges in 2050
-
 
 # The function use physic and statistic model and acutal datas to plot the temperature in 2024
   
@@ -127,6 +103,8 @@ def plot_2024(csv_physic, csv_statistic, csv_data, place, year):
     x_model = np.arange(1, 366)    # X-axis for the physic and statistic model (1 to 365)
     x_data = np.arange(1, 327)  # X-axis for the data list (1 to 326)
 
+    # Graph
+    plt.figure(figsize=(12, 8))
 
     # Plot the models as curves
 
@@ -140,7 +118,7 @@ def plot_2024(csv_physic, csv_statistic, csv_data, place, year):
     # Add labels and title
 
     plt.xlabel("Day of the year")
-    plt.ylabel("Temperature")
+    plt.ylabel("Temperature (°C)")
     plt.title(f"Temperature of the surface of Lake Geneva near {place} in 2024")
 
     # Add a legend
@@ -149,7 +127,7 @@ def plot_2024(csv_physic, csv_statistic, csv_data, place, year):
 
     # Save the plot
 
-    plt.savefig(f"results/Plot temperature in {place} in {year}")
+    plt.savefig(f"results/Temperature_{place}_{year}")
 
     # Clear the plot
 
@@ -203,6 +181,8 @@ def plot_2050(csv_physic, csv_statistic, place, year):
 
     x = np.arange(1, 366)    # X-axis for the physic and statistic model (1 to 365)
 
+    # Graph
+    plt.figure(figsize=(12, 8))
 
     # Plot the models as curves
 
@@ -212,7 +192,7 @@ def plot_2050(csv_physic, csv_statistic, place, year):
     # Add labels and title
 
     plt.xlabel("Day of the year")
-    plt.ylabel("Temperature")
+    plt.ylabel("Temperature (°C)")
     plt.title(f"Temperature of the surface of Lake Geneva near {place} in {year}")
 
     # Add a legend
@@ -221,7 +201,7 @@ def plot_2050(csv_physic, csv_statistic, place, year):
 
     # Save the plot
 
-    plt.savefig(f"results/Plot temperature in {place} in {year}")
+    plt.savefig(f"results/Temperature_{place}_{year}")
 
     # Clear the plot
 
@@ -267,6 +247,9 @@ def plot_2024_vs_2050(csv_physic_2024, csv_physic_2050, place):
             physic_temp_2050.append(float(row[5]))  # Sixth column: temperatures with the physical model with all the parameters
 
 
+    # Graph
+    plt.figure(figsize=(12, 8))
+
     # Create X axe
 
     x = np.arange(1, 366)    # X-axis for the physic model (1 to 365)
@@ -279,7 +262,7 @@ def plot_2024_vs_2050(csv_physic_2024, csv_physic_2050, place):
     # Add labels and title
 
     plt.xlabel("Day of the year")
-    plt.ylabel("Temperature")
+    plt.ylabel("Temperature (°C)")
     plt.title(f"Temperature of the surface of Lake Geneva near {place} in 2024 and 2050")
 
     # Add a legend
@@ -288,24 +271,11 @@ def plot_2024_vs_2050(csv_physic_2024, csv_physic_2050, place):
 
     # Save the plot
 
-    plt.savefig(f"results/Plot temperature in {place} in 2024 and 2050")
+    plt.savefig(f"results/Temperature_{place}_2024_2050")
 
     # Clear the plot
 
     plt.clf()
-
-# Call the functions
-#Geneva_2024 = plot_2024(csv_physic_model_eaux_vives_2024, csv_stat_model_eaux_vives_2024, csv_data_eaux_vives_2024, "Geneva", 2024)
-
-#Morges_2024 = plot_2024(csv_physic_model_morges_2024, csv_stat_model_morges_2024, csv_data_morges_2024, "Morges", 2024)
-
-#Geneva_2050 = plot_2050(csv_physic_model_eaux_vives_2050, csv_stat_model_eaux_vives_2050, "Geneva", 2050)
-
-#Morges_2050 = plot_2050(csv_physic_model_morges_2050, csv_stat_model_morges_2050, "Morges", 2050)
-
-#Geneva_2024_2050 = plot_2024_vs_2050(csv_physic_model_eaux_vives_2024, csv_physic_model_eaux_vives_2050, "Geneva")
-
-#Morges_2024_2050 = plot_2024_vs_2050(csv_physic_model_morges_2024, csv_physic_model_morges_2050, "Morges")
 
 
 if __name__ == "__main__":

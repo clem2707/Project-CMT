@@ -55,10 +55,6 @@ def polynomial_regression(file_name, path_results):
     plt.legend()
     plt.savefig(path_results)
 
-# Example of using the function
-#file = "datas/temperature_data/geneva.csv"  
-#path_results = "results/graph_linear_regression_geneva.png"
-#polynomial_regression(file, path_results)
 
 if __name__ == "__main__":
     polynomial_regression(sys.argv[1], sys.argv[2])

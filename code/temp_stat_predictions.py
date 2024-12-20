@@ -137,7 +137,6 @@ def predict_year(file_path, year, path_dest):
     annual_results_df.to_csv(path_dest, index=False)
 
 
-#predict_folder("datas/temperature_data", "01/01/2024", "internal/Lake_pred2024.csv")
 
 if __name__ == "__main__":
 

@@ -60,6 +60,7 @@ def display_stat(predicted_data_path, interior_points_path, path_results):
     vmax += 0.05 * range_diff  # increase upper limit by 5%
 
     # XY Graph
+    plt.figure(figsize=(12, 8))
     # Predicted points
     sc_predicted = plt.scatter(predicted_data['x'], predicted_data['y'], c=temperatures, cmap='coolwarm', edgecolors='white', s=100, label='Predicted Data Points')
 
@@ -77,9 +78,6 @@ def display_stat(predicted_data_path, interior_points_path, path_results):
     plt.legend()
     plt.savefig(path_results)
 
-# Example usage of the function
-#display_stat("internal/Lake_pred2024.csv", "internal/interior_points.csv", "results/Lake_pred2024.png")
-#display_stat("internal/Lake_reel2024.csv", "internal/interior_points.csv", "results/Lake_reel2024.png")
 
 if __name__ == "__main__":
     display_stat(sys.argv[1], sys.argv[2], sys.argv[3])

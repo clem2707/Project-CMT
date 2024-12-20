@@ -59,7 +59,6 @@ def real_temp(folder_path, date_str, path_dest):
     results_df = pd.DataFrame(results)
     results_df.to_csv(path_dest, index=False)
 
-#real_temp("datas/temperature_data", "01/01/2024", "internal/real_temp.csv")
 
 if __name__ == "__main__":
     real_temp(sys.argv[1], sys.argv[2], sys.argv[3])

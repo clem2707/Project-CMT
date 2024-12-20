@@ -46,6 +46,7 @@ def map_lake(path_data, path_dest, path_results):
                 interior_points.append((x, y))
 
     # XY Graph
+    plt.figure(figsize=(12, 8))
     # Display the lake borders
     x, y = lake_polygon.exterior.xy
     plt.plot(x, y, color="blue", label="Lake Geneva")
@@ -60,6 +61,7 @@ def map_lake(path_data, path_dest, path_results):
     # The size of each point is 50, so the lake appears filled
 
     # Graph configurations
+    plt.title(f"Lake Geneva with interior points")
     plt.xlabel("Longitude (x)")
     plt.ylabel("Latitude (y)")
     plt.legend()
@@ -69,8 +71,6 @@ def map_lake(path_data, path_dest, path_results):
     interior_points_df = pd.DataFrame(interior_points, columns=['x', 'y'])
     interior_points_df.to_csv(path_dest, index=False)
 
-# Example usage of the function
-#map_lake("datas/harbor.csv", "internal/int_points.csv", "results/lake_vide.png")
 
 if __name__ == "__main__":
     map_lake(sys.argv[1], sys.argv[2], sys.argv[3])
