@@ -21,6 +21,9 @@ This program wil:
     - "*stat_pred_gva_2050.csv*"
     - "*stat_pred_morges_2050.csv*"
   - "*interior_poinst.csv*" a csv file containing x and y values of the harbors
+  - 2 csv files of temperature datas, one predict and one with real temperature
+    - "*temp_pred_01_01_2024.csv*"
+    - "*temp_real_01_01_2024.csv*"
 3. Plot differents graphes with both models, and a statistically and measured based temperature map of lake Geneva
 
 ## Project structure
@@ -63,7 +66,7 @@ Internal files:
   - "*internal/stat_pred_gva_2050.csv*" is a comma-delimted file.
   - "*internal/stat_pred_morges_2050.csv*" is a comma-delimted file.
   - "*internal/temp_pred_01_01_2024.csv*" is a comma-delimted file.
-  - "*internal/temp_real_01_01_2024*" is a comma-delimted file.
+  - "*internal/temp_real_01_01_2024.csv*" is a comma-delimted file.
 
 
 Outputs:
@@ -76,6 +79,7 @@ Outputs:
 - "*results/Lake_template.png*" is a png file.
 - "*results/Lake_prediction_01_01_2024.csv*" is a png file.
 - "*results/Lake_measure_01_01_2024.png*" is a png file.
+- "*results/Polynomial_Regression_Morges.png*" is a png file.
 You are free to save or delete them after the execution
 
 ## Implementation details
@@ -127,48 +131,58 @@ parameters in the function such as the locations.
 To reproduce results in the report, 3 steps should be followed.
 It's important to notice that the physic model contains some random module so the exact reproduction isn't possible, but the differences is implemented on purpose because the wheater isn't an exact science and the yearly temperature doesn't reproduce exactly for each year.
 
-1. Download all the necessary libraries
-  - numpy
+1. Download all the necessary libraries, write in the terminal
+  - for numpy
     type
     ```
     pip install numpy
     ```
-  - pandas
+  - for pandas
     type
     ```
     pip install pandas
     ```
-  - matplotlib
+  - for matplotlib
     type
     ```
     pip install matplotlib
     ```
-  - scikit-learn
+  - for scikit-learn
     type
     ```
     pip install scikit-learn
     ```
-  - scipy
+  - for scipy
     type
     ```
     pip install scipy
     ```
-  - shapely
+  - for shapely
     type
     ```
     pip install shapely
     ```
-  To verify the library is well installed
-  Write the code
+  To verify the library is well installed, wite this code in a file :
   ```
   import "name of the library"
   print("name of the library".__version__)
   ```
-  And execute the code
+  And run the code, if all the versions of your libraries are similar to the one below, you can go on to execute the code 
 
-2.
-A COMPLETER
-python interpreter et écrire make dans le terminal
+  Code execution :
+  
+  Write in the terminal :
+  ```
+  which python
+  ```
+And copy and paste the result into the makefile at "# Specify the Python interpreter - use your own."
+
+Then to run the code, write in the terminal:
+  ```
+  make
+  ```
+
+
 
 ## Requirements
 
@@ -203,7 +217,7 @@ The temperature datas in "*datas/temperature_datas" have been send by Nicholas L
 
 The data file "*harbor.csv" comes from [Carto Leman](https://www.arcgis.com/apps/webappviewer/index.html?id=efb2bdccfdcf4fc18814426a63b5f6fa&extent=672740.9389%2C5810352.5672%2C705608.861%2C5825506.208%2C102100).
 
-### Formulae
+### Formulas
 
 The function that calculate the MAET (Mean Annual Epilimnetic Temperature) relies on the study of [Ottosson and Abrahamsson](https://www.sciencedirect.com/science/article/pii/S0304380098000672?via%3Dihub) published on [ScienceDirect](https://www.sciencedirect.com/).
 
