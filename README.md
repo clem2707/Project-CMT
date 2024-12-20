@@ -33,6 +33,8 @@ This program wil:
 edited by the program and should not be manually modified.
 - "*results/*" contains saved .png files of plotted results
 - "*code/*" contains program code
+The "*results/*" and "*internal/*" files are empty and will fill up once the code has run. 
+That's why they don't appear directly on the git.  
 
 ### Inputs and outputs
 
