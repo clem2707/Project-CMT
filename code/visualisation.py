@@ -283,7 +283,7 @@ if __name__ == "__main__":
     function_name = sys.argv[1]
 
     if function_name == "plot_2024":
-        print(plot_2024(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6]))
+        plot_2024(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
 
     elif function_name == "plot_2050":
         plot_2050(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
